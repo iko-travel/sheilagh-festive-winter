@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap">
+<style>
+:root { --bg:#fbfbf8; --surface:#ffffff; --ink:#2d3029; --text:#454a41; --muted:#696e62; --line:#e7e9e2; --accent:#5f6d4e; --soft:#f2f4ee; --band:#eef1e8; --display:"Cormorant Garamond", Garamond, Georgia, serif; --body:"Jost", "Avenir Next", "Segoe UI", system-ui, sans-serif; --radius:8px; --shadow:0 1px 2px rgba(45,48,41,.04), 0 8px 24px rgba(45,48,41,.05); }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--display); font-weight: 600; color: var(--ink); margin: 0; text-wrap: balance; letter-spacing: 0; }
+h1 em { font-style: italic; font-weight: 500; color: var(--accent); }
+a { color: var(--accent); }
+button { font: inherit; color: inherit; }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.lbl { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.lbl-acc { color: var(--accent); }
+.hero { background: linear-gradient(180deg, #eef1e8 0%, #fbfbf8 100%); }
+.mark { font-family: var(--display); font-size: 22px; font-weight: 600; letter-spacing: .3em; color: var(--ink); }
+.brand { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-bottom: 16px; border-bottom: 1px solid rgba(45,48,41,.18); }
+.lede { font-size: 18px; color: #555b50; max-width: 62ch; margin: 0; }
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.fact { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.fact-v { font-size: 16px; font-weight: 500; color: var(--ink); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 22px; border: 0; border-radius: 999px; background: var(--accent); color: #fff; font-size: 13px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: background .2s; }
+.btn:hover { background: var(--ink); }
+.btn-out { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+.btn-out:hover { background: var(--soft); }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.sec-h { font-size: 1.8rem; line-height: 1.15; }
+.count { font-size: 13px; color: var(--muted); }
+.bk { all: unset; box-sizing: border-box; cursor: pointer; display: flex; align-items: center; gap: 18px; width: 100%; padding: 18px 22px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); transition: border-color .2s, transform .2s; }
+.bk:hover { border-color: var(--accent); transform: translateY(-1px); }
+.bk:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.date { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 52px; min-width: 52px; height: 52px; border-radius: 50%; background: var(--soft); }
+.date-m { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); line-height: 1.2; }
+.date-d { font-family: var(--display); font-size: 1.35rem; font-weight: 600; color: var(--accent); line-height: 1; }
+.bk-t { font-size: 16px; font-weight: 500; color: var(--ink); }
+.bk-s { font-size: 14px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pill { font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; padding: 5px 11px; border-radius: 999px; background: var(--soft); color: var(--accent); white-space: nowrap; }
+.pill.warn { background: #fbeeec; color: #9b4a3a; }
+.pill.wait { background: #f6eee6; color: #7d5530; }
+.chev { color: var(--muted); font-size: 18px; line-height: 1; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); }
+.dash-v { width: 0; height: 30px; border-left: 1.5px dashed rgba(95,109,78,.5); }
+.stop-c { font-family: var(--display); font-size: 1.3rem; font-weight: 600; color: var(--ink); line-height: 1.1; }
+.stop-n { font-size: 13px; color: var(--muted); }
+.day { display: grid; grid-template-columns: 56px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.day-l { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.day-d { font-size: 13px; color: var(--muted); }
+.day-t { font-size: 15px; font-weight: 500; color: var(--ink); }
+.day-n { font-size: 14px; color: var(--text); white-space: pre-line; text-wrap: pretty; }
+.acc { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.acc-h { all: unset; box-sizing: border-box; cursor: pointer; display: flex; align-items: center; gap: 12px; width: 100%; padding: 16px 20px; transition: background .2s; }
+.acc-h:hover { background: var(--soft); }
+.acc-h:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.acc-t { flex: 1; font-size: 16px; font-weight: 500; color: var(--ink); text-align: left; }
+.acc-s { font-family: var(--display); font-size: 1.6rem; line-height: 1; color: var(--accent); }
+.acc-b { display: flex; flex-direction: column; padding: 0 20px 16px; border-top: 1px solid var(--line); }
+.line { all: unset; box-sizing: border-box; display: grid; grid-template-columns: 20px 1fr; gap: 12px; align-items: start; padding: 10px 0; border-bottom: 1px solid var(--line); text-align: left; }
+.line:last-child { border-bottom: 0; }
+.line:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tick { display: flex; align-items: center; justify-content: center; width: 19px; height: 19px; margin-top: 2px; border-radius: 50%; font-size: 11px; font-weight: 600; color: #fff; }
+.bul { width: 6px; height: 6px; margin: 9px auto 0; border-radius: 50%; background: var(--accent); }
+.line-t { font-size: 15px; line-height: 1.5; text-wrap: pretty; }
+.pane-k { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.pane-t { font-size: 2rem; line-height: 1.1; }
+.pane-s { font-size: 14px; color: var(--muted); }
+.x { all: unset; box-sizing: border-box; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: var(--soft); color: var(--ink); font-size: 16px; }
+.x:hover { background: var(--line); }
+.x:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pass { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--surface); flex-shrink: 0; }
+.pass-h { display: flex; align-items: center; gap: 10px; padding: 14px 20px; background: var(--soft); border-bottom: 1px solid var(--line); }
+.pass-c { font-family: var(--display); font-size: 1.2rem; font-weight: 600; color: var(--ink); }
+.iata { font-family: var(--display); font-size: 2.3rem; font-weight: 600; color: var(--ink); line-height: 1; }
+.pname { font-size: 12px; color: var(--muted); line-height: 1.35; }
+.ptime { font-size: 17px; font-weight: 600; color: var(--ink); margin-top: 6px; font-variant-numeric: tabular-nums; }
+.stat-l { font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.stat-v { font-size: 14px; font-weight: 500; color: var(--ink); }
+.perf { height: 0; border-top: 1.5px dashed rgba(95,109,78,.45); }
+.code { flex: 1; height: 40px; background: repeating-linear-gradient(to right, #2d3029 0 2px, transparent 2px 4px, #2d3029 4px 5px, transparent 5px 9px, #2d3029 9px 12px, transparent 12px 14px); opacity: .85; }
+.fld { display: flex; align-items: baseline; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.fld-l { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); min-width: 112px; }
+.fld-v { font-size: 15px; color: var(--ink); text-align: right; margin-left: auto; text-wrap: pretty; }
+.note { padding: 16px 20px; border-radius: var(--radius); background: var(--soft); border-left: 3px solid var(--accent); font-size: 15px; line-height: 1.6; color: var(--text); text-wrap: pretty; }
+.grp-h { padding: 18px 22px; font-family: var(--body); font-weight: 400; }
+.grp-h .count { font-family: var(--body); font-weight: 400; font-size: 13px; }
+.grp-t { font-family: var(--display); font-size: 1.6rem; font-weight: 600; color: var(--ink); line-height: 1.15; }
+.grp-b { display: flex; flex-direction: column; gap: 10px; padding: 16px; border-top: 1px solid var(--line); background: var(--soft); }
+.docbtn { justify-content: flex-start; text-align: left; text-decoration: none; text-transform: none; letter-spacing: 0; font-size: 15px; border-radius: 10px; padding: 13px 18px; }
+.docbtn span { font-size: 16px; }
+a.btn { text-decoration: none; }
+.alert { display: flex; gap: 14px; align-items: flex-start; background: #fbeeec; border: 1px solid #f0d6d0; border-left: 4px solid #b5543f; border-radius: var(--radius); padding: 16px 20px; color: #3d2a25; }
+.alert-ic { flex: none; width: 26px; height: 26px; border-radius: 50%; background: #b5543f; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; margin-top: 1px; }
+.alert-t { display: block; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: #9b3d2c; margin-bottom: 4px; }
+.alert p { margin: 0; font-size: 15px; line-height: 1.55; }
+.wx { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.wx-c { background: var(--soft); border-radius: var(--radius); padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.wx-city { font-family: var(--display); font-size: 1.45rem; font-weight: 600; color: var(--ink); line-height: 1.1; }
+.wx-dates { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.wx-temp { font-family: var(--display); font-size: 2rem; font-weight: 600; color: var(--ink); line-height: 1.1; margin-top: 6px; font-variant-numeric: tabular-nums; }
+.wx-temp small { font-family: var(--body); font-size: 13px; font-weight: 400; color: var(--muted); margin-left: 4px; }
+.wx-n { font-size: 14px; color: var(--text); line-height: 1.5; }
+.docrow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 12px 14px; background: var(--soft); border-radius: 10px; }
+.docrow-t { flex: 1 1 180px; min-width: 0; font-size: 15px; color: var(--ink); }
+.docrow-b { display: flex; gap: 8px; }
+.docact { padding: 9px 16px; font-size: 12px; text-decoration: none; }
+.viewer { position: fixed; inset: 0; z-index: 50; background: rgba(30,32,27,.92); display: flex; flex-direction: column; }
+.viewer-bar { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--surface); border-bottom: 1px solid var(--line); }
+.viewer-t { flex: 1; min-width: 0; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.viewer-body { flex: 1; overflow: auto; padding: 20px 12px 40px; display: flex; flex-direction: column; align-items: center; gap: 14px; -webkit-overflow-scrolling: touch; }
+.viewer-pg { display: block; width: 100%; max-width: 900px; height: auto; background: #fff; border-radius: 4px; box-shadow: 0 6px 24px rgba(0,0,0,.35); }
+.bud-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.bud-stat { background: var(--soft); border-radius: var(--radius); padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.bud-stat strong { font-family: var(--display); font-size: 1.55rem; font-weight: 600; color: var(--ink); line-height: 1.15; font-variant-numeric: tabular-nums; }
+.bud-left { background: #e6eedb; }
+.bud-left strong { color: #3f5a2c; }
+.bud-bar { height: 8px; border-radius: 999px; background: var(--line); margin-top: 16px; overflow: hidden; }
+.bud-bar span { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+.bud-cap { margin: 6px 0 14px; font-size: 13px; color: var(--muted); }
+.bud-head, .bud-r { display: grid; grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr)); gap: 12px; align-items: baseline; }
+.bud-head { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding: 0 0 8px; border-bottom: 1px solid var(--line); }
+.bud-head span:not(:first-child), .bud-v { text-align: right; font-variant-numeric: tabular-nums; }
+.bud-g { padding: 10px 0 4px; border-bottom: 1px solid var(--line); }
+.bud-gt { display: block; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 4px; }
+.bud-r { padding: 6px 0; font-size: 15px; }
+.bud-n { color: var(--ink); }
+.bud-v { color: var(--text); }
+.bud-v em { display: none; font-style: normal; }
+.bud-v.under { color: #3f5a2c; font-weight: 500; }
+.bud-v.over { color: #9b3d2c; font-weight: 500; }
+.bud-h { align-items: center; }
+.bud-sum { display: flex; flex-direction: column; align-items: flex-end; font-family: var(--display); font-size: 1.35rem; font-weight: 600; color: #3f5a2c; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.bud-sum small { font-family: var(--body); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
+.bud-fee { display: block; font-size: 10px; letter-spacing: .02em; text-transform: none; color: var(--muted); font-weight: 400; margin-top: 1px; }
+.bud-note { margin: 12px 0 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+@media (max-width: 899px) {
+  .bud-head { display: none; }
+  .bud-r { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 10px; padding: 8px 0; }
+  .bud-n { grid-column: 1 / -1; font-weight: 500; }
+  .bud-v { text-align: left; font-size: 14px; }
+  .bud-v em { display: block; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
+  .bud-stats { grid-template-columns: 1fr; gap: 8px; }
+  .bud-stat { flex-direction: row; align-items: baseline; justify-content: space-between; padding: 10px 14px; }
+  .bud-stat strong { font-size: 1.35rem; }
+}
+.back { all: unset; box-sizing: border-box; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 14px 26px; font-size: 13px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid var(--line); background: var(--surface); }
+.back:hover { color: var(--ink); background: var(--soft); }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.back-end { border-bottom: 0; border-top: 1px solid var(--line); justify-content: center; padding: 18px 26px; }
+@keyframes panelUp { from { transform: translateY(101%); } to { transform: translateY(0); } }
+@keyframes veil { from { opacity: 0; } to { opacity: 1; } }
+@media print { body { background: #fff; } .btn { display: none; } }
+@media (prefers-reduced-motion: reduce) { .bk { transition: none; } }
+</style>
+</helmet>
+<sc-if value="{{ isWide }}" hint-placeholder-val="{{ false }}">
+<div style="width:100%;min-height:100vh;background:#fbfbf8">
+
+  <div class="hero">
+    <div style="max-width:1320px;margin:0 auto;padding:36px 40px 40px;display:flex;flex-direction:column;gap:30px">
+      <div class="brand">
+        <div style="display:flex;align-items:baseline;gap:18px"><span class="mark">IKO</span><span class="lbl">Travel itinerary</span></div>
+        <div style="display:flex;gap:10px">
+          <button type="button" class="btn btn-out" onClick="{{ viewItinerary }}">Print itinerary</button>
+          <a class="btn" href="Festive-European-Winter-all-documents.pdf" download="Festive-European-Winter-all-documents.pdf">Download all documents</a>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <span class="lbl">For Sheilagh</span>
+        <h1 style="font-size:4rem;line-height:1.05">Festive <em>European</em> Winter</h1>
+        <p class="lede">Zurich, Vienna and Prague for the festive season, and home in time for Christmas.</p>
+      </div>
+      <div class="facts">
+        <div class="fact"><span class="lbl">Dates</span><span class="fact-v">3 – 24 December 2026</span></div>
+        <div class="fact"><span class="lbl">Duration</span><span class="fact-v">22 days</span></div>
+        <div class="fact"><span class="lbl">Travellers</span><span class="fact-v">Sheilagh Hall · Carol Graham joins in Vienna</span></div>
+        <div class="fact"><span class="lbl">Countdown</span><span class="fact-v" style="color:#5f6d4e">{{ countdown }}</span></div>
+      </div>
+    </div>
+  </div>
+
+  <sc-if value="{{ noSel }}" hint-placeholder-val="{{ true }}">
+  <sc-if value="{{ showRoute }}" hint-placeholder-val="{{ true }}">
+  <div style="max-width:1320px;margin:0 auto;padding:36px 40px 0">
+    <div class="panel" style="padding:22px 28px 22px">
+      <span class="lbl lbl-acc" style="display:block;margin-bottom:20px">Route</span>
+      <div style="display:flex;justify-content:space-between;align-items:start;gap:8px;position:relative">
+        <div style="position:absolute;top:5px;left:10%;right:10%;border-top:1.5px dashed rgba(95,109,78,.5)"></div>
+        <sc-for list="{{ route }}" as="stop" hint-placeholder-count="5">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;flex:1;min-width:0;text-align:center">
+            <span class="dot" style="margin-bottom:4px"></span>
+            <span class="stop-c" style="font-size:1.5rem">{{ stop.code }}</span>
+            <span class="stop-n" style="font-size:14px">{{ stop.name }}</span>
+            <span style="font-size:13px;font-weight:500;color:#5f6d4e">{{ stop.dates }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+  <div style="max-width:1320px;margin:0 auto;padding:20px 40px 0;display:flex;flex-direction:column;gap:20px">
+    <div class="alert" role="note">
+      <span class="alert-ic" aria-hidden="true">!</span>
+      <div>
+        <span class="alert-t">Reminder · collect your opera tickets</span>
+        <p>The La Bohème tickets (13 Dec, 18:00) are paper tickets and must be collected in person, or there's no entry. Go to the One Event office, Opernring 1/E/536-537, 5th floor, across from the State Opera. Collect on <strong>Saturday 12 Dec, 13:00 – 17:00</strong> (best), or Sunday 13 Dec, 15:00 – 18:00. Bring the booking name and order number #111104.</p>
+      </div>
+    </div>
+    <div class="panel" style="padding:22px 24px 22px">
+      <span class="lbl lbl-acc" style="display:block;margin-bottom:4px">Weather</span>
+      <h2 class="sec-h" style="font-size:1.6rem;margin-bottom:6px">What December is usually like</h2>
+      <p style="margin:0 0 16px;font-size:14px;color:#696e62">Typical averages, not a forecast. Check the forecast a few days before each leg.</p>
+      <div class="wx" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+        <sc-for list="{{ weather }}" as="w" hint-placeholder-count="3">
+          <div class="wx-c">
+            <span class="wx-city">{{ w.city }}</span>
+            <span class="wx-dates">{{ w.dates }}</span>
+            <span class="wx-temp">{{ w.high }}<small>{{ w.low }}</small></span>
+            <span class="wx-n">{{ w.note }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:1320px;margin:0 auto;display:grid;grid-template-columns:290px minmax(0,1fr);gap:36px;padding:36px 40px 72px;align-items:start">
+
+    <div style="display:flex;flex-direction:column;gap:32px">
+
+      <div style="display:flex;flex-direction:column">
+        <span class="lbl lbl-acc" style="margin-bottom:6px">Your trip</span>
+        <h2 class="sec-h" style="margin-bottom:8px">Day by day</h2>
+        <sc-for list="{{ days }}" as="day" hint-placeholder-count="7">
+          <div class="day">
+            <div style="display:flex;flex-direction:column;gap:1px">
+              <span class="day-l">{{ day.label }}</span>
+              <span class="day-d">{{ day.date }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <span class="day-t">{{ day.title }}</span>
+              <span class="day-n">{{ day.note }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:36px">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span class="lbl lbl-acc">Your bookings</span>
+        <h2 class="sec-h" style="margin-bottom:4px">Flights, stays &amp; documents</h2>
+      <sc-for list="{{ groups }}" as="group" hint-placeholder-count="5">
+        <div class="acc">
+          <h3 style="margin:0">
+            <button type="button" class="acc-h grp-h" onClick="{{ group.toggle }}" aria-expanded="{{ group.expanded }}">
+              <span style="flex:1;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;text-align:left"><span class="grp-t">{{ group.title }}</span><span class="count">{{ group.count }}</span></span>
+              <span class="acc-s" aria-hidden="true">{{ group.sign }}</span>
+            </button>
+          </h3>
+          <sc-if value="{{ group.open }}" hint-placeholder-val="{{ false }}">
+          <div class="grp-b">
+          <sc-for list="{{ group.items }}" as="item" hint-placeholder-count="3">
+            <button type="button" class="bk" onClick="{{ item.open }}" style="border-color:{{ item.border }}">
+              <span class="date"><span class="date-m">{{ item.mon }}</span><span class="date-d">{{ item.day }}</span></span>
+              <span style="display:flex;flex-direction:column;gap:2px;min-width:0;flex:1">
+                <span class="bk-t">{{ item.title }}</span>
+                <span class="bk-s">{{ item.sub }}</span>
+              </span>
+              <span class="pill {{ item.tone }}">{{ item.status }}</span>
+              <span class="chev" aria-hidden="true">›</span>
+            </button>
+          </sc-for>
+          </div>
+          </sc-if>
+        </div>
+      </sc-for>
+      </div>
+
+      <div class="panel bud" style="overflow:hidden">
+        <h2 style="margin:0">
+          <button type="button" class="acc-h bud-h" onClick="{{ toggleBud }}" aria-expanded="{{ budExpanded }}" style="padding:24px 26px">
+            <span style="flex:1;display:flex;flex-direction:column;gap:2px;text-align:left">
+              <span class="lbl lbl-acc" style="font-family:var(--body)">Your budget</span>
+              <span class="grp-t">Trip budget</span>
+            </span>
+            <span class="bud-sum"><small>Remaining</small>{{ bud.left }}</span>
+            <span class="acc-s" aria-hidden="true">{{ budSign }}</span>
+          </button>
+        </h2>
+        <sc-if value="{{ budOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:0 26px 22px;border-top:1px solid var(--line);padding-top:18px">
+        <div class="bud-stats">
+          <div class="bud-stat"><span class="lbl">Budget</span><strong>{{ bud.total }}</strong></div>
+          <div class="bud-stat"><span class="lbl">Spent <span class="bud-fee">incl. cross-border transaction fees</span></span><strong>{{ bud.used }}</strong></div>
+          <div class="bud-stat bud-left"><span class="lbl">Remaining</span><strong>{{ bud.left }}</strong></div>
+        </div>
+        <div class="bud-bar" role="img" aria-label="{{ bud.pctLabel }}"><span style="width:{{ bud.pct }}"></span></div>
+        <p class="bud-cap">{{ bud.pctLabel }}</p>
+        <div class="bud-head" aria-hidden="true"><span>Item</span><span>Budget</span><span>Spent<span class="bud-fee">incl. fees</span></span></div>
+        <sc-for list="{{ bud.groups }}" as="bg" hint-placeholder-count="5">
+          <div class="bud-g">
+            <span class="bud-gt">{{ bg.title }}</span>
+            <sc-for list="{{ bg.rows }}" as="br" hint-placeholder-count="2">
+              <div class="bud-r">
+                <span class="bud-n">{{ br.name }}</span>
+                <span class="bud-v"><em>Budget</em>{{ br.budget }}</span>
+                <span class="bud-v"><em>Spent (incl. fees)</em>{{ br.used }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+        <p class="bud-note">Amounts in rand. Spent includes cross-border card transaction fees and the R1,434 planning fee.</p>
+        </div>
+        </sc-if>
+      </div>
+
+      <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span class="lbl lbl-acc">Before you go</span>
+        <h2 class="sec-h" style="margin-bottom:4px">Good to know</h2>
+        <sc-for list="{{ notes }}" as="note" hint-placeholder-count="7">
+          <div class="acc">
+            <button type="button" class="acc-h" onClick="{{ note.toggle }}">
+              <span class="acc-t">{{ note.title }}</span>
+              <span class="acc-s" aria-hidden="true">{{ note.sign }}</span>
+            </button>
+            <sc-if value="{{ note.open }}" hint-placeholder-val="{{ false }}">
+              <div class="acc-b">
+                <sc-for list="{{ note.items }}" as="line" hint-placeholder-count="4">
+                  <button type="button" class="line" onClick="{{ line.toggle }}" style="cursor:{{ line.cursor }}">
+                    <sc-if value="{{ line.task }}" hint-placeholder-val="{{ false }}">
+                      <span class="tick" style="border:1.5px solid {{ line.ring }};background:{{ line.fill }}">{{ line.mark }}</span>
+                    </sc-if>
+                    <sc-if value="{{ line.bullet }}" hint-placeholder-val="{{ true }}">
+                      <span class="bul"></span>
+                    </sc-if>
+                    <span class="line-t" style="color:{{ line.color }}">{{ line.text }}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      </sc-if>
+    </div>
+
+  </div>
+  </sc-if>
+  <sc-if value="{{ hasSel }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width:920px;margin:0 auto;padding:36px 40px 72px">
+    <article class="panel" style="overflow:hidden;display:flex;flex-direction:column">
+      <button type="button" class="back" onClick="{{ close }}">← Back to your itinerary</button>
+      <div style="padding:28px 30px 32px;display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span class="pane-k">{{ pane.kicker }}</span>
+          <h2 class="pane-t" style="font-size:2.6rem">{{ pane.title }}</h2>
+          <span class="pane-s" style="font-size:15px">{{ pane.sub }}</span>
+        </div>
+        <sc-if value="{{ pane.isFlight }}" hint-placeholder-val="{{ true }}">
+          <div class="pass">
+            <div class="pass-h">
+              <span class="pass-c">{{ pane.carrier }}</span>
+              <span class="lbl" style="margin-left:auto;font-size:11px">Boarding pass</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:22px 20px 14px">
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <span class="iata">{{ pane.from }}</span>
+                <span class="pname">{{ pane.fromName }}</span>
+                <span class="ptime">{{ pane.depTime }}</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:5px;color:#5f6d4e">
+                <span style="font-size:11px;color:#696e62;text-align:center">{{ pane.duration }}</span>
+                <span style="font-size:16px" aria-hidden="true">✈</span>
+                <span style="width:90px;border-top:1.5px dashed rgba(95,109,78,.5)"></span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:2px;text-align:right">
+                <span class="iata">{{ pane.to }}</span>
+                <span class="pname">{{ pane.toName }}</span>
+                <span class="ptime">{{ pane.arrTime }}</span>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding:8px 20px 18px">
+              <sc-for list="{{ pane.passStats }}" as="stat" hint-placeholder-count="4">
+                <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+                  <span class="stat-l">{{ stat.label }}</span>
+                  <span class="stat-v">{{ stat.value }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div class="perf"></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:16px 20px 18px">
+              <div class="code" aria-hidden="true"></div>
+              <span style="font-size:12px;letter-spacing:.06em;color:#696e62">{{ pane.eticket }}</span>
+            </div>
+          </div>
+        </sc-if>
+        <div style="display:flex;flex-direction:column">
+          <span class="lbl lbl-acc" style="margin-bottom:4px">Booking details</span>
+          <sc-for list="{{ pane.fields }}" as="field" hint-placeholder-count="5">
+            <div class="fld">
+              <span class="fld-l">{{ field.label }}</span>
+              <span class="fld-v">{{ field.value }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ pane.note }}" hint-placeholder-val="{{ true }}">
+          <div class="note"><span class="lbl lbl-acc" style="display:block;margin-bottom:4px;font-size:11px">Good to know</span>{{ pane.note }}</div>
+        </sc-if>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span class="lbl lbl-acc">Documents</span>
+          <sc-for list="{{ pane.docs }}" as="doc" hint-placeholder-count="1">
+            <div class="docrow">
+              <span class="docrow-t">{{ doc.label }}</span>
+              <div class="docrow-b">
+                <button type="button" class="btn docact" onClick="{{ doc.view }}">View</button>
+                <a class="btn btn-out docact" href="{{ doc.href }}" download="{{ doc.file }}" aria-label="Download {{ doc.label }}">Download</a>
+              </div>
+            </div>
+          </sc-for>
+          <sc-for list="{{ pane.links }}" as="link" hint-placeholder-count="0">
+            <a class="btn docbtn" href="{{ link.href }}" target="_blank" rel="noopener"><span aria-hidden="true">↗</span>{{ link.label }}</a>
+          </sc-for>
+          <sc-if value="{{ pane.noDocs }}" hint-placeholder-val="{{ false }}">
+            <span style="font-size:14px;color:#696e62">No document for this booking.</span>
+          </sc-if>
+        </div>
+      </div>
+      <button type="button" class="back back-end" onClick="{{ close }}">← Back</button>
+    </article>
+  </div>
+  </sc-if>
+<sc-if value="{{ viewing }}" hint-placeholder-val="{{ false }}">
+  <div class="viewer" role="dialog" aria-modal="true" aria-label="{{ viewDoc.label }}">
+    <div class="viewer-bar">
+      <span class="viewer-t">{{ viewDoc.label }}</span>
+      <a class="btn btn-out docact" href="{{ viewDoc.href }}" download="{{ viewDoc.file }}">Download</a>
+      <button type="button" class="x" onClick="{{ closeView }}" aria-label="Close">✕</button>
+    </div>
+    <div class="viewer-body">
+      <sc-for list="{{ viewDoc.pages }}" as="pg" hint-placeholder-count="1">
+        <img class="viewer-pg" src="{{ pg.src }}" alt="{{ pg.alt }}">
+      </sc-for>
+    </div>
+  </div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isNarrow }}" hint-placeholder-val="{{ true }}">
+<div style="width:100%;max-width:560px;margin:0 auto;min-height:100vh;background:#fbfbf8">
+
+  <div>
+
+    <div class="hero" style="padding:26px 20px 28px;display:flex;flex-direction:column;gap:24px">
+      <div class="brand"><span class="mark" style="font-size:20px">IKO</span><span class="lbl">Travel itinerary</span></div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span class="lbl">For Sheilagh</span>
+        <h1 style="font-size:2.7rem;line-height:1.05">Festive <em>European</em> Winter</h1>
+        <p class="lede" style="font-size:17px">Zurich, Vienna and Prague for the festive season, and home in time for Christmas.</p>
+      </div>
+      <div class="facts" style="grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
+        <div class="fact"><span class="lbl">Dates</span><span class="fact-v">3 – 24 Dec 2026</span></div>
+        <div class="fact"><span class="lbl">Duration</span><span class="fact-v">22 days</span></div>
+        <div class="fact"><span class="lbl">Travellers</span><span class="fact-v">Sheilagh · Carol in Vienna</span></div>
+        <div class="fact"><span class="lbl">Countdown</span><span class="fact-v" style="color:#5f6d4e">{{ countdown }}</span></div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button type="button" class="btn btn-out" onClick="{{ viewItinerary }}" style="flex:1 1 140px">Print itinerary</button>
+        <a class="btn" href="Festive-European-Winter-all-documents.pdf" download="Festive-European-Winter-all-documents.pdf" style="flex:1 1 140px">All documents</a>
+      </div>
+    </div>
+
+    <sc-if value="{{ noSel }}" hint-placeholder-val="{{ true }}">
+    <div style="padding:8px 20px 20px">
+    <div class="alert" role="note">
+      <span class="alert-ic" aria-hidden="true">!</span>
+      <div>
+        <span class="alert-t">Reminder · collect your opera tickets</span>
+        <p>The La Bohème tickets (13 Dec, 18:00) are paper tickets and must be collected in person, or there's no entry. Go to the One Event office, Opernring 1/E/536-537, 5th floor, across from the State Opera. Collect on <strong>Saturday 12 Dec, 13:00 – 17:00</strong> (best), or Sunday 13 Dec, 15:00 – 18:00. Bring the booking name and order number #111104.</p>
+      </div>
+    </div>
+    </div>
+    <sc-if value="{{ showRoute }}" hint-placeholder-val="{{ true }}">
+    <div class="panel" style="margin:0 20px 20px;padding:20px 16px 18px">
+      <div class="lbl lbl-acc" style="margin-bottom:18px;padding-left:4px">Route</div>
+      <div style="display:flex;justify-content:space-between;align-items:start;gap:2px;position:relative">
+        <div style="position:absolute;top:5px;left:10%;right:10%;border-top:1.5px dashed rgba(95,109,78,.5)"></div>
+        <sc-for list="{{ route }}" as="stop" hint-placeholder-count="5">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;flex:1;min-width:0">
+            <span class="dot"></span>
+            <span class="stop-c" style="font-size:1.15rem">{{ stop.code }}</span>
+            <span style="font-size:11px;color:#696e62;text-align:center;line-height:1.3">{{ stop.name }}</span>
+            <span style="font-size:11px;font-weight:500;color:#5f6d4e;text-align:center;line-height:1.3">{{ stop.dates }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+    <div style="padding:0 20px 30px">
+    <div class="panel" style="padding:22px 24px 22px">
+      <span class="lbl lbl-acc" style="display:block;margin-bottom:4px">Weather</span>
+      <h2 class="sec-h" style="font-size:1.6rem;margin-bottom:6px">What December is usually like</h2>
+      <p style="margin:0 0 16px;font-size:14px;color:#696e62">Typical averages, not a forecast. Check the forecast a few days before each leg.</p>
+      <div class="wx" style="{{ wxColsNarrow }}">
+        <sc-for list="{{ weather }}" as="w" hint-placeholder-count="3">
+          <div class="wx-c">
+            <span class="wx-city">{{ w.city }}</span>
+            <span class="wx-dates">{{ w.dates }}</span>
+            <span class="wx-temp">{{ w.high }}<small>{{ w.low }}</small></span>
+            <span class="wx-n">{{ w.note }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;padding:0 20px 30px">
+      <span class="lbl lbl-acc">Your bookings</span>
+      <h2 class="sec-h" style="font-size:1.6rem;margin-bottom:4px">Flights, stays &amp; documents</h2>
+    <sc-for list="{{ groups }}" as="group" hint-placeholder-count="5">
+      <div class="acc">
+        <h3 style="margin:0">
+          <button type="button" class="acc-h grp-h" onClick="{{ group.toggle }}" aria-expanded="{{ group.expanded }}" style="padding:15px 18px">
+            <span style="flex:1;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;text-align:left"><span class="grp-t" style="font-size:1.35rem">{{ group.title }}</span><span class="count">{{ group.count }}</span></span>
+            <span class="acc-s" aria-hidden="true">{{ group.sign }}</span>
+          </button>
+        </h3>
+        <sc-if value="{{ group.open }}" hint-placeholder-val="{{ false }}">
+        <div class="grp-b" style="padding:12px">
+        <sc-for list="{{ group.items }}" as="item" hint-placeholder-count="2">
+          <button type="button" class="bk" onClick="{{ item.open }}" style="gap:14px;padding:16px">
+            <span class="date" style="width:46px;min-width:46px;height:46px"><span class="date-m">{{ item.mon }}</span><span class="date-d" style="font-size:1.2rem">{{ item.day }}</span></span>
+            <span style="display:flex;flex-direction:column;gap:2px;min-width:0;flex:1">
+              <span class="bk-t" style="font-size:15px">{{ item.title }}</span>
+              <span class="bk-s" style="font-size:13px">{{ item.sub }}</span>
+            </span>
+            <span style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+              <sc-if value="{{ showStatus }}" hint-placeholder-val="{{ true }}"><span class="pill {{ item.tone }}" style="font-size:10px;padding:4px 9px">{{ item.status }}</span></sc-if>
+              <span class="chev" aria-hidden="true">›</span>
+            </span>
+          </button>
+        </sc-for>
+        </div>
+        </sc-if>
+      </div>
+    </sc-for>
+    </div>
+
+    <sc-if value="{{ showTimeline }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-direction:column;padding:0 20px 30px">
+      <span class="lbl lbl-acc" style="margin-bottom:6px">Your trip</span>
+      <h2 class="sec-h" style="font-size:1.6rem;margin-bottom:6px">Day by day</h2>
+      <sc-for list="{{ days }}" as="day" hint-placeholder-count="5">
+        <div class="day">
+          <div style="display:flex;flex-direction:column;gap:1px">
+            <span class="day-l">{{ day.label }}</span>
+            <span class="day-d">{{ day.date }}</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <span class="day-t">{{ day.title }}</span>
+            <span class="day-n">{{ day.note }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    </sc-if>
+
+    <div style="padding:0 20px 30px">
+    <div class="panel bud" style="overflow:hidden">
+        <h2 style="margin:0">
+          <button type="button" class="acc-h bud-h" onClick="{{ toggleBud }}" aria-expanded="{{ budExpanded }}" style="padding:20px 18px">
+            <span style="flex:1;display:flex;flex-direction:column;gap:2px;text-align:left">
+              <span class="lbl lbl-acc" style="font-family:var(--body)">Your budget</span>
+              <span class="grp-t">Trip budget</span>
+            </span>
+            <span class="bud-sum"><small>Remaining</small>{{ bud.left }}</span>
+            <span class="acc-s" aria-hidden="true">{{ budSign }}</span>
+          </button>
+        </h2>
+        <sc-if value="{{ budOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:0 18px 22px;border-top:1px solid var(--line);padding-top:18px">
+        <div class="bud-stats">
+          <div class="bud-stat"><span class="lbl">Budget</span><strong>{{ bud.total }}</strong></div>
+          <div class="bud-stat"><span class="lbl">Spent <span class="bud-fee">incl. cross-border transaction fees</span></span><strong>{{ bud.used }}</strong></div>
+          <div class="bud-stat bud-left"><span class="lbl">Remaining</span><strong>{{ bud.left }}</strong></div>
+        </div>
+        <div class="bud-bar" role="img" aria-label="{{ bud.pctLabel }}"><span style="width:{{ bud.pct }}"></span></div>
+        <p class="bud-cap">{{ bud.pctLabel }}</p>
+        <div class="bud-head" aria-hidden="true"><span>Item</span><span>Budget</span><span>Spent<span class="bud-fee">incl. fees</span></span></div>
+        <sc-for list="{{ bud.groups }}" as="bg" hint-placeholder-count="5">
+          <div class="bud-g">
+            <span class="bud-gt">{{ bg.title }}</span>
+            <sc-for list="{{ bg.rows }}" as="br" hint-placeholder-count="2">
+              <div class="bud-r">
+                <span class="bud-n">{{ br.name }}</span>
+                <span class="bud-v"><em>Budget</em>{{ br.budget }}</span>
+                <span class="bud-v"><em>Spent (incl. fees)</em>{{ br.used }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+        <p class="bud-note">Amounts in rand. Spent includes cross-border card transaction fees and the R1,434 planning fee.</p>
+        </div>
+        </sc-if>
+      </div>
+    </div>
+    <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-direction:column;gap:10px;padding:0 20px 44px">
+      <span class="lbl lbl-acc">Before you go</span>
+      <h2 class="sec-h" style="font-size:1.6rem;margin-bottom:4px">Good to know</h2>
+      <sc-for list="{{ notes }}" as="note" hint-placeholder-count="7">
+        <div class="acc">
+          <button type="button" class="acc-h" onClick="{{ note.toggle }}" style="padding:15px 18px">
+            <span class="acc-t" style="font-size:15px">{{ note.title }}</span>
+            <span class="acc-s" aria-hidden="true">{{ note.sign }}</span>
+          </button>
+          <sc-if value="{{ note.open }}" hint-placeholder-val="{{ false }}">
+            <div class="acc-b" style="padding:0 18px 14px">
+              <sc-for list="{{ note.items }}" as="line" hint-placeholder-count="4">
+                <button type="button" class="line" onClick="{{ line.toggle }}" style="cursor:{{ line.cursor }}">
+                  <sc-if value="{{ line.task }}" hint-placeholder-val="{{ false }}">
+                    <span class="tick" style="border:1.5px solid {{ line.ring }};background:{{ line.fill }}">{{ line.mark }}</span>
+                  </sc-if>
+                  <sc-if value="{{ line.bullet }}" hint-placeholder-val="{{ true }}">
+                    <span class="bul"></span>
+                  </sc-if>
+                  <span class="line-t" style="font-size:14.5px;color:{{ line.color }}">{{ line.text }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+    </sc-if>
+
+    </sc-if>
+    <sc-if value="{{ hasSel }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:8px 16px 40px">
+    <article class="panel" style="overflow:hidden;display:flex;flex-direction:column">
+      <button type="button" class="back" onClick="{{ close }}">← Back to your itinerary</button>
+      <div style="padding:22px 20px 24px;display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span class="pane-k">{{ pane.kicker }}</span>
+          <h2 class="pane-t" style="font-size:2rem">{{ pane.title }}</h2>
+          <span class="pane-s" style="font-size:15px">{{ pane.sub }}</span>
+        </div>
+        <sc-if value="{{ pane.isFlight }}" hint-placeholder-val="{{ true }}">
+          <div class="pass">
+            <div class="pass-h">
+              <span class="pass-c">{{ pane.carrier }}</span>
+              <span class="lbl" style="margin-left:auto;font-size:11px">Boarding pass</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:22px 20px 14px">
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <span class="iata">{{ pane.from }}</span>
+                <span class="pname">{{ pane.fromName }}</span>
+                <span class="ptime">{{ pane.depTime }}</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:5px;color:#5f6d4e">
+                <span style="font-size:11px;color:#696e62;text-align:center">{{ pane.duration }}</span>
+                <span style="font-size:16px" aria-hidden="true">✈</span>
+                <span style="width:44px;border-top:1.5px dashed rgba(95,109,78,.5)"></span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:2px;text-align:right">
+                <span class="iata">{{ pane.to }}</span>
+                <span class="pname">{{ pane.toName }}</span>
+                <span class="ptime">{{ pane.arrTime }}</span>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:8px 20px 18px">
+              <sc-for list="{{ pane.passStats }}" as="stat" hint-placeholder-count="4">
+                <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+                  <span class="stat-l">{{ stat.label }}</span>
+                  <span class="stat-v">{{ stat.value }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div class="perf"></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:16px 20px 18px">
+              <div class="code" aria-hidden="true"></div>
+              <span style="font-size:12px;letter-spacing:.06em;color:#696e62">{{ pane.eticket }}</span>
+            </div>
+          </div>
+        </sc-if>
+        <div style="display:flex;flex-direction:column">
+          <span class="lbl lbl-acc" style="margin-bottom:4px">Booking details</span>
+          <sc-for list="{{ pane.fields }}" as="field" hint-placeholder-count="5">
+            <div class="fld">
+              <span class="fld-l" style="min-width:100px">{{ field.label }}</span>
+              <span class="fld-v">{{ field.value }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ pane.note }}" hint-placeholder-val="{{ true }}">
+          <div class="note"><span class="lbl lbl-acc" style="display:block;margin-bottom:4px;font-size:11px">Good to know</span>{{ pane.note }}</div>
+        </sc-if>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span class="lbl lbl-acc">Documents</span>
+          <sc-for list="{{ pane.docs }}" as="doc" hint-placeholder-count="1">
+            <div class="docrow">
+              <span class="docrow-t">{{ doc.label }}</span>
+              <div class="docrow-b">
+                <button type="button" class="btn docact" onClick="{{ doc.view }}">View</button>
+                <a class="btn btn-out docact" href="{{ doc.href }}" download="{{ doc.file }}" aria-label="Download {{ doc.label }}">Download</a>
+              </div>
+            </div>
+          </sc-for>
+          <sc-for list="{{ pane.links }}" as="link" hint-placeholder-count="0">
+            <a class="btn docbtn" href="{{ link.href }}" target="_blank" rel="noopener"><span aria-hidden="true">↗</span>{{ link.label }}</a>
+          </sc-for>
+          <sc-if value="{{ pane.noDocs }}" hint-placeholder-val="{{ false }}">
+            <span style="font-size:14px;color:#696e62">No document for this booking.</span>
+          </sc-if>
+        </div>
+      </div>
+      <button type="button" class="back back-end" onClick="{{ close }}">← Back</button>
+    </article>
+    </div>
+    </sc-if>
+
+  </div>
+<sc-if value="{{ viewing }}" hint-placeholder-val="{{ false }}">
+  <div class="viewer" role="dialog" aria-modal="true" aria-label="{{ viewDoc.label }}">
+    <div class="viewer-bar">
+      <span class="viewer-t">{{ viewDoc.label }}</span>
+      <a class="btn btn-out docact" href="{{ viewDoc.href }}" download="{{ viewDoc.file }}">Download</a>
+      <button type="button" class="x" onClick="{{ closeView }}" aria-label="Close">✕</button>
+    </div>
+    <div class="viewer-body">
+      <sc-for list="{{ viewDoc.pages }}" as="pg" hint-placeholder-count="1">
+        <img class="viewer-pg" src="{{ pg.src }}" alt="{{ pg.alt }}">
+      </sc-for>
+    </div>
+  </div>
+</sc-if>
+</div>
+</sc-if>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;layout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Responsive&quot;,&quot;Mobile&quot;,&quot;Desktop&quot;],&quot;default&quot;:&quot;Responsive&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Preview&quot;},&quot;departDate&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;2026-12-03&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Trip&quot;},&quot;showRoute&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;},&quot;showTimeline&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;},&quot;showNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;},&quot;showStatus&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
+const DOC_PAGES = {"Festive-European-Winter-itinerary.pdf": ["view/Itinerary-01.jpg", "view/Itinerary-02.jpg", "view/Itinerary-03.jpg", "view/Itinerary-04.jpg", "view/Itinerary-05.jpg", "view/Itinerary-06.jpg", "view/Itinerary-07.jpg", "view/Itinerary-08.jpg", "view/Itinerary-09.jpg", "view/Itinerary-10.jpg", "view/Itinerary-11.jpg", "view/Itinerary-12.jpg", "view/Itinerary-13.jpg", "view/Itinerary-14.jpg", "view/Itinerary-15.jpg", "view/Itinerary-16.jpg", "view/Itinerary-17.jpg"], "Airport-transfer-change-confirmation.pdf": ["view/Airport-transfer-change-confirmation-1.jpg"], "Airport-transfer-original-confirmation.png": ["view/Airport-transfer-original-confirmation.jpg"], "Austrian-OS134-booking-8XSETE.pdf": ["view/Austrian-OS134-booking-8XSETE-1.jpg", "view/Austrian-OS134-booking-8XSETE-2.jpg", "view/Austrian-OS134-booking-8XSETE-3.jpg"], "Austrian-OS134-receipt.pdf": ["view/Austrian-OS134-receipt-1.jpg", "view/Austrian-OS134-receipt-2.jpg"], "Dan-In-n-Out-Carol-check-in-voucher.pdf": ["view/Dan-In-n-Out-Carol-check-in-voucher-1.jpg"], "Dan-In-n-Out-Carol-receipt.pdf": ["view/Dan-In-n-Out-Carol-receipt-1.jpg"], "Das-Tigra-Carol-11-12-Dec-invoice.pdf": ["view/Das-Tigra-Carol-11-12-Dec-invoice-1.jpg"], "Das-Tigra-Carol-13-14-Dec-invoice.pdf": ["view/Das-Tigra-Carol-13-14-Dec-invoice-1.jpg"], "Das-Tigra-Sheilagh-11-13-Dec.pdf": ["view/Das-Tigra-Sheilagh-11-13-Dec-1.jpg", "view/Das-Tigra-Sheilagh-11-13-Dec-2.jpg", "view/Das-Tigra-Sheilagh-11-13-Dec-3.jpg"], "Das-Tigra-Sheilagh-13-14-Dec-invoice.pdf": ["view/Das-Tigra-Sheilagh-13-14-Dec-invoice-1.jpg"], "Emirates-e-ticket-KPA3JW.pdf": ["view/Emirates-e-ticket-KPA3JW-1.jpg", "view/Emirates-e-ticket-KPA3JW-2.jpg", "view/Emirates-e-ticket-KPA3JW-3.jpg", "view/Emirates-e-ticket-KPA3JW-4.jpg"], "La-Boheme-invoice-03952.pdf": ["view/La-Boheme-invoice-03952-1.jpg"], "OEBB-train-ticket-Vienna-Prague.pdf": ["view/OEBB-train-ticket-Vienna-Prague-1.jpg", "view/OEBB-train-ticket-Vienna-Prague-2.jpg"], "Passport-Sheilagh-Hall.jpg": ["view/Passport-Sheilagh-Hall.jpg"], "St-Peters-concert-Carol-QR.png": ["view/St-Peters-concert-Carol-QR.jpg"], "St-Peters-concert-Sheilagh-QR.png": ["view/St-Peters-concert-Sheilagh-QR.jpg"]};
+
+const ITINERARY_DATA = (function () {
+const PAX = "HALL / SHEILAGH MACMILLAN MRS";
+const TKT = "176 2215024839-40";
+
+const bookings = [
+  { group: "Flights", id: "f1", date: "2026-12-03", mon: "Dec", day: "03", title: "Cape Town → Dubai", sub: "Emirates EK 771 · 18:30", status: "Confirmed",
+    kicker: "Flight · leg 1 of 4", panelTitle: "CPT → DXB", panelSub: "Thursday 3 December 2026", isFlight: true,
+    carrier: "Emirates · EK 771", from: "CPT", fromName: "Cape Town International", to: "DXB", toName: "Dubai Intl, Terminal 3",
+    depTime: "18:30", arrTime: "05:55", duration: "10h 25m · overnight",
+    passStats: [ { label: "Class", value: "Economy Saver" }, { label: "Seat", value: "At check-in" }, { label: "Check-in", value: "14:30" }, { label: "Bags", value: "2 pieces" } ],
+    eticket: TKT,
+    fields: [ { label: "Booking ref", value: "KPA3JW" }, { label: "Ticket number", value: TKT }, { label: "Passenger", value: PAX }, { label: "Skywards", value: "EK1046946821" }, { label: "Checked bags", value: "2 × 23 kg" }, { label: "Cabin bag", value: "1 × 7 kg" }, { label: "Total fare", value: "ZAR 15 305.80 · credit card" } ],
+    note: "Be at Cape Town International by 15:30, three hours before departure. Check-in opens at 14:30. Check in online 48 hours ahead and save the boarding pass to your phone. Have your passport ready; bags are checked straight through to Zurich.", docs: [["Emirates e-ticket (all 4 legs)", "Emirates-e-ticket-KPA3JW.pdf"]], docName: "ticket" },
+
+  { group: "Flights", id: "f2", date: "2026-12-04", mon: "Dec", day: "04", title: "Dubai → Zürich", sub: "Emirates EK 087 · 08:25", status: "Confirmed",
+    kicker: "Flight · leg 2 of 4", panelTitle: "DXB → ZRH", panelSub: "Friday 4 December 2026", isFlight: true,
+    carrier: "Emirates · EK 087", from: "DXB", fromName: "Dubai Intl, Terminal 3", to: "ZRH", toName: "Zürich-Kloten",
+    depTime: "08:25", arrTime: "12:25", duration: "6h 00m · direct",
+    passStats: [ { label: "Class", value: "Economy Saver" }, { label: "Seat", value: "At check-in" }, { label: "Check-in", value: "05:25" }, { label: "Bags", value: "2 pieces" } ],
+    eticket: TKT,
+    fields: [ { label: "Booking ref", value: "KPA3JW" }, { label: "Ticket number", value: TKT }, { label: "Passenger", value: PAX }, { label: "Connection", value: "2h 30m in Dubai" }, { label: "Checked bags", value: "Through-checked to Zürich" } ],
+    note: "Dubai connection: 2h 30m in Terminal 3. Follow the Transfers signs. No visa or passport control is needed to transit, and your bags go straight through to Zurich. At Zurich passport control you register for Europe's new Entry/Exit System (fingerprints and a photo) on this first entry, so allow extra time before meeting your friends. Trains from the airport to Zürich HB take about 10 minutes.", docs: [["Emirates e-ticket (all 4 legs)", "Emirates-e-ticket-KPA3JW.pdf"]], docName: "ticket" },
+
+  { group: "Flights", id: "f3", date: "2026-12-23", mon: "Dec", day: "23", title: "Prague → Dubai", sub: "Emirates EK 140 · 14:45", status: "Confirmed",
+    kicker: "Flight · leg 3 of 4", panelTitle: "PRG → DXB", panelSub: "Wednesday 23 December 2026", isFlight: true,
+    carrier: "Emirates · EK 140", from: "PRG", fromName: "Václav Havel, Terminal 1", to: "DXB", toName: "Dubai Intl, Terminal 3",
+    depTime: "14:45", arrTime: "23:40", duration: "5h 55m · direct",
+    passStats: [ { label: "Class", value: "Economy Flex" }, { label: "Seat", value: "58C" }, { label: "Check-in", value: "11:45" }, { label: "Bags", value: "2 pieces" } ],
+    eticket: TKT,
+    fields: [ { label: "Booking ref", value: "KPA3JW" }, { label: "Ticket number", value: TKT }, { label: "Passenger", value: PAX }, { label: "Checked bags", value: "2 × 23 kg" }, { label: "Third bag", value: "ZAR 4 040 if added" } ],
+    note: "Check out of the apartment and leave by about 11:00. Bolt or a taxi from Karlín to Václav Havel Airport takes 30 – 40 minutes. Be at the airport by 11:45, three hours before departure. You're registered out of the Entry/Exit System at passport control, so allow time. Bags are checked through to Cape Town.", docs: [["Emirates e-ticket (all 4 legs)", "Emirates-e-ticket-KPA3JW.pdf"]], docName: "ticket" },
+
+  { group: "Flights", id: "f4", date: "2026-12-24", mon: "Dec", day: "24", title: "Dubai → Cape Town", sub: "Emirates EK 772 · 03:50", status: "Confirmed",
+    kicker: "Flight · leg 4 of 4", panelTitle: "DXB → CPT", panelSub: "Thursday 24 December 2026", isFlight: true,
+    carrier: "Emirates · EK 772", from: "DXB", fromName: "Dubai Intl, Terminal 3", to: "CPT", toName: "Cape Town International",
+    depTime: "03:50", arrTime: "11:40", duration: "9h 50m · direct",
+    passStats: [ { label: "Class", value: "Economy Flex" }, { label: "Seat", value: "29C" }, { label: "Check-in", value: "00:50" }, { label: "Bags", value: "2 pieces" } ],
+    eticket: TKT,
+    fields: [ { label: "Booking ref", value: "KPA3JW" }, { label: "Ticket number", value: TKT }, { label: "Passenger", value: PAX }, { label: "Connection", value: "4h 10m in Dubai" }, { label: "Arrives", value: "11:40, 24 December" } ],
+    note: "Dubai connection: 4h 10m overnight in Terminal 3. Follow the Transfers signs. Your bags go straight through to Cape Town, so there's no need to collect them. Lands in Cape Town at 11:40 on Christmas Eve.", docs: [["Emirates e-ticket (all 4 legs)", "Emirates-e-ticket-KPA3JW.pdf"]], docName: "ticket" },
+
+  { group: "Flights", id: "f5", date: "2026-12-11", mon: "Dec", day: "11", title: "Zurich → Vienna", sub: "Austrian OS 134 · 10:40", status: "Confirmed",
+    kicker: "Flight · Zurich to Vienna", panelTitle: "ZRH → VIE", panelSub: "Friday 11 December 2026", isFlight: true,
+    carrier: "Austrian Airlines · OS 134", from: "ZRH", fromName: "Zurich Airport (ZRH)", to: "VIE", toName: "Vienna International, Terminal 3",
+    depTime: "10:40", arrTime: "12:00", duration: "1h 20m · nonstop",
+    passStats: [ { label: "Class", value: "Economy Comfort" }, { label: "Seat", value: "At check-in" }, { label: "Aircraft", value: "E195" }, { label: "Bags", value: "1 piece" } ],
+    eticket: "8XSETE",
+    fields: [ { label: "Booking ref", value: "8XSETE" }, { label: "Passenger", value: "Ms. Sheilagh Macmillan Hall" }, { label: "Operated by", value: "Austrian Airlines · Embraer 195" }, { label: "Checked baggage", value: "1 × 23 kg" }, { label: "Carry-on", value: "1 × 8 kg, max 55 × 40 × 23 cm" }, { label: "Personal item", value: "Max 40 × 30 × 15 cm" }, { label: "Seat reservation", value: "Included at check-in" }, { label: "Rebooking", value: "Max CHF 80.00 plus fare difference" }, { label: "Refundability", value: "Not allowed" }, { label: "Total price", value: "CHF 308.00" } ],
+    note: "Be at Zurich Airport by 09:00, about 1h 40m before departure. The train from Zürich HB takes about 10 minutes. This flight allows only 1 checked bag of 23 kg, not the 2 you have on Emirates. If you're bringing a second bag, pay for it online in advance. It lands at Vienna Terminal 3, where the hotel driver meets you at the airport service desk.", docs: [["Austrian booking confirmation", "Austrian-OS134-booking-8XSETE.pdf"], ["Austrian passenger receipt", "Austrian-OS134-receipt.pdf"]], docName: "ticket" },
+
+  { group: "Stays", id: "s1", date: "2026-12-11", mon: "Dec", day: "11", title: "Boutique Hotel Das Tigra, Vienna", sub: "Sheilagh · 3 nights · Standard room · Room only", status: "Paid",
+    kicker: "Accommodation · Sheilagh", panelTitle: "Boutique Hotel Das Tigra", panelSub: "11 – 14 December 2026 · 3 nights", isFlight: false,
+    fields: [ { label: "Booking ref", value: "AUTnjuwnzyya-6507628" }, { label: "Guest", value: "Sheilagh Macmillan Hall" }, { label: "Address", value: "Tiefer Graben 14-20, Vienna 1010, Austria" }, { label: "Phone", value: "+43 1 533 96 41-0" }, { label: "Room", value: "Standard double room, single use, approx. 19 m², same room all 3 nights" }, { label: "Board", value: "Room only, non-refundable" }, { label: "Check-in", value: "Friday 11 December, from 15:00" }, { label: "Check-out", value: "Monday 14 December, by 11:00" }, { label: "11 – 13 Dec", value: "€935.00 · booked on the hotel website" }, { label: "13 – 14 Dec", value: "€225.00 · extra night added by email" }, { label: "Total", value: "€1,160.00 · paid in full" } ],
+    note: "Address: Tiefer Graben 14 – 20, 1010 Vienna. The hotel transfer brings you here at about 15:00, just as rooms become available. Check-out on 14 December is by 11:00. Ask reception to hold your bags until you leave for the 13:10 train. Breakfast isn't included; the buffet runs 06:30 – 10:30 on weekdays and 07:00 – 11:00 at weekends if you want it on the day. Nearest U-Bahn: U3 Herrengasse, a three-minute walk. All 3 nights are paid; the hotel confirmed on 10 November.", docs: [["Booking confirmation, 11 – 13 Dec", "Das-Tigra-Sheilagh-11-13-Dec.pdf"], ["Invoice for extra night, 13 – 14 Dec", "Das-Tigra-Sheilagh-13-14-Dec-invoice.pdf"]], docName: "voucher" },
+
+  { group: "Stays", id: "s2", date: "2026-12-11", mon: "Dec", day: "11", title: "Das Tigra · Carol, night 1", sub: "Carol · 11 – 12 Dec · Comfort room · Room only", status: "Paid",
+    kicker: "Accommodation · Carol Graham", panelTitle: "Das Tigra · Comfort Room", panelSub: "Friday 11 – Saturday 12 December 2026 · 1 night", isFlight: false,
+    fields: [ { label: "Confirmation no.", value: "63605" }, { label: "Guest", value: "Carol Graham" }, { label: "Room", value: "Comfort double room, single use, approx. 21 m²" }, { label: "Rate", value: "Direct booker −15%, non-refundable, no breakfast" }, { label: "Check-in", value: "Friday 11 December, from 15:00" }, { label: "Check-out", value: "Saturday 12 December, by 11:00" }, { label: "Total", value: "€514.00 · paid" } ],
+    note: "Same hotel as Sheilagh: Tiefer Graben 14 – 20, 1010 Vienna. Check-in from 15:00 after the airport transfer. Saturday 12 December was fully booked at Das Tigra, so on Saturday morning Carol checks out by 11:00 and moves to Dan In'n Out for one night, returning on Sunday.", docs: [["Das Tigra invoice, 11 – 12 Dec", "Das-Tigra-Carol-11-12-Dec-invoice.pdf"]], docName: "voucher" },
+
+  { group: "Stays", id: "s3", date: "2026-12-12", mon: "Dec", day: "12", title: "Dan In'n Out · Carol, night 2", sub: "Carol · 12 – 13 Dec · Double room · Room only", status: "Paid",
+    kicker: "Accommodation · Carol Graham", panelTitle: "Dan In'n Out", panelSub: "Saturday 12 – Sunday 13 December 2026 · 1 night", isFlight: false,
+    fields: [ { label: "Confirmation no.", value: "1794253471819" }, { label: "Booking no.", value: "1688902690109344 · Trip.com" }, { label: "PIN", value: "6744 (keep private)" }, { label: "Guest", value: "Carol Graham" }, { label: "Address", value: "Salzgries 21, Innere Stadt, 1010 Vienna, Austria" }, { label: "Phone", value: "+43 699 18192524" }, { label: "Room", value: "Double room, 1 double bed, private bathroom" }, { label: "Meals", value: "No meals included" }, { label: "Check-in", value: "Saturday 12 December, after 12:00" }, { label: "Check-out", value: "Sunday 13 December, 07:30 – 10:00" }, { label: "Cancellation", value: "Free until 23:59 on 10 Dec, then non-refundable" }, { label: "Total", value: "ZAR 6,618.09 · paid 10 Nov" } ],
+    note: "Address: Salzgries 21, 1010 Vienna, in the same old-town district as Das Tigra, a short walk away. Check-in is after 12:00. Reception isn't always staffed in the evening, so message the property with Carol's arrival time beforehand. Check-out on Sunday is 07:30 – 10:00. Das Tigra opens her room from 15:00, so she can leave her bag at Das Tigra's reception in between.", docs: [["Check-in voucher", "Dan-In-n-Out-Carol-check-in-voucher.pdf"], ["Trip.com receipt", "Dan-In-n-Out-Carol-receipt.pdf"]], docName: "voucher" },
+
+  { group: "Stays", id: "s4", date: "2026-12-13", mon: "Dec", day: "13", title: "Das Tigra · Carol, night 3", sub: "Carol · 13 – 14 Dec · Standard room · Room only", status: "Paid",
+    kicker: "Accommodation · Carol Graham", panelTitle: "Das Tigra · Standard Room", panelSub: "Sunday 13 – Monday 14 December 2026 · 1 night", isFlight: false,
+    fields: [ { label: "Confirmation no.", value: "63606" }, { label: "Guest", value: "Carol Graham" }, { label: "Room", value: "Standard double room, single use, approx. 19 m²" }, { label: "Rate", value: "Direct booker −15%, non-refundable, no breakfast" }, { label: "Check-in", value: "Sunday 13 December, from 15:00" }, { label: "Check-out", value: "Monday 14 December, by 11:00" }, { label: "Total", value: "€280.00 · paid" } ],
+    note: "Back at Das Tigra, Tiefer Graben 14 – 20. Check-in from 15:00, so she can drop her bag at reception earlier on Sunday. Check-out on Monday 14 December by 11:00. Paid and confirmed by the hotel on 10 November.", docs: [["Das Tigra invoice, 13 – 14 Dec", "Das-Tigra-Carol-13-14-Dec-invoice.pdf"]], docName: "voucher" },
+
+  { group: "Stays", id: "s5", date: "2026-12-14", mon: "Dec", day: "14", title: "Apartment in Karlín, Prague", sub: "Sheilagh · 9 nights · Booked by Sheilagh", status: "Own booking",
+    kicker: "Accommodation · Prague", panelTitle: "Prague Days Apartment", panelSub: "Monday 14 – Wednesday 23 December 2026 · 9 nights", isFlight: false,
+    fields: [ { label: "Property", value: "Prague Days · Apartment with Balcony and Parking" }, { label: "Address", value: "Křižíkova 97, Karlín, Prague 186 00, Czech Republic" }, { label: "Layout", value: "Entire place, 1 bedroom" }, { label: "Check-in", value: "Monday 14 December, after the train arrives at 17:25" }, { label: "Check-out", value: "Wednesday 23 December, before the 14:45 flight" }, { label: "Booked by", value: "Sheilagh directly, not through IKO Travel" }, { label: "From station", value: "About 5 km from Praha-Holešovice" } ],
+    note: "Address: Křižíkova 97, Karlín, Prague 186 00, about 5 km from Praha-Holešovice. You arrive at about 18:00 after the 17:25 train. Ask the host for check-in and key instructions before you leave Vienna, and have their phone number saved. Křižíkova metro station (line B) is close by. This booking was made by Sheilagh herself, not through IKO Travel, so the confirmation, payment and any changes are between her and the property. Transport from the station on arrival is still to be arranged.", docName: "summary" },
+
+  { group: "Transfers & trains", id: "t1", date: "2026-12-11", mon: "Dec", day: "11", title: "Vienna Airport → Das Tigra", sub: "Sheilagh & Carol · Meets Carol's BA 694 · 14:15", status: "Confirmed",
+    kicker: "Transfer", panelTitle: "Airport pickup to Das Tigra", panelSub: "Friday 11 December 2026 · BA 694 lands 13:30", isFlight: false,
+    fields: [ { label: "Arranged by", value: "Boutique Hotel Das Tigra" }, { label: "Passengers", value: "Sheilagh Hall & Carol Graham, with luggage" }, { label: "Pickup time", value: "14:15" }, { label: "Flight", value: "BA 694 · Carol lands 13:30" }, { label: "Was", value: "12:00 for Sheilagh on OS 134" }, { label: "Meeting point", value: "Airport service desk, Wien Schwechat" }, { label: "Where", value: "Arrivals hall, to the right, 40 m walk" }, { label: "Driver", value: "Holds a name sign in the arrival hall" }, { label: "Driver phone", value: "+43 699 190 54731" }, { label: "Transfer time", value: "30 – 40 minutes to the hotel" }, { label: "Price", value: "From EUR 59.00, paid to the driver (cash or card)" } ],
+    note: "Meeting point: the airport service desk in the arrivals hall at Wien Schwechat, about 40 m to the right as you walk in. The driver holds a name sign. Sheilagh lands at 12:00 on OS 134 and waits for Carol, whose BA 694 lands at 13:30. Pickup is at 14:15. If Carol's bags are delayed, call the driver on +43 699 190 54731 to avoid extra charges. Pay the driver directly, in cash or by card. Das Tigra confirmed the updated pickup for two guests on 19 November.", docs: [["Change confirmation: 2 guests, 14:15, BA 694", "Airport-transfer-change-confirmation.pdf"], ["Original pickup confirmation: meeting point and price", "Airport-transfer-original-confirmation.png"]], docName: "voucher" },
+
+  { group: "Flights", id: "c1", date: "2026-12-11", mon: "Dec", day: "11", title: "Carol arrives in Vienna", sub: "British Airways BA 694 · lands 13:30", status: "Carol",
+    kicker: "Flight · Carol Graham", panelTitle: "Carol · BA 694 to Vienna", panelSub: "Friday 11 December 2026 · lands 13:30", isFlight: false,
+    fields: [ { label: "Passenger", value: "Carol Graham" }, { label: "Flight in", value: "BA 694 · lands Vienna 13:30" }, { label: "Flight out", value: "BA 695 · departs Vienna 14:20" }, { label: "Booked by", value: "Carol" } ],
+    note: "Carol shared these flight times by WhatsApp on 10 November. Her departure date on BA 695 isn't in the message.", docName: "summary" },
+
+  { group: "Transfers & trains", id: "r1", date: "2026-12-14", mon: "Dec", day: "14", title: "Train · Vienna → Prague", sub: "ÖBB Railjet RJ 250 · 13:10 → 17:25 · 1st class", status: "Paid",
+    kicker: "Train · ÖBB", panelTitle: "Vienna → Prague", panelSub: "Monday 14 December 2026 · 13:10 – 17:25 · one way", isFlight: false,
+    fields: [ { label: "Booking code", value: "0673 3359 9363 6675" }, { label: "Passenger", value: "Sheilagh Macmillan Hall" }, { label: "From", value: "Wien Hauptbahnhof (platforms 3 – 12)" }, { label: "To", value: "Praha-Holešovice" }, { label: "Train", value: "Railjet RJ 250" }, { label: "Departs", value: "13:10 · Wien Hbf, Monday 14 December" }, { label: "Arrives", value: "17:25 · Praha-Holešovice" }, { label: "Duration", value: "4h 15m, direct" }, { label: "Class", value: "1st class" }, { label: "Fare", value: "Sparschiene Komfort · valid only on this train" }, { label: "Ticket code", value: "2430 6062 0918 8387" }, { label: "Ticket type", value: "PDF ticket, print in A4" }, { label: "Customer no.", value: "PV272465105" }, { label: "Price", value: "€32.00 · paid" } ],
+    note: "Leave Das Tigra by about 12:15 and be on the platform by 12:45. A taxi to Wien Hauptbahnhof takes 10 – 15 minutes, or take the U3 from Herrengasse to Stephansplatz and change to the U1 to Hauptbahnhof. Check the departure screens for the platform. Print the ticket in A4, portrait, on white paper; a phone screen is only accepted in Austria. Bring your passport, as the conductor checks photo ID. The fare is tied to the 13:10 train. Don't fold the ticket code, and keep the ticket until you leave the station in Prague.", docs: [["ÖBB train ticket (print in A4)","OEBB-train-ticket-Vienna-Prague.pdf"]], docName: "ticket" },
+
+  { group: "Tours & excursions", id: "e1", date: "2026-12-12", mon: "Dec", day: "12", title: "Classic Ensemble Vienna, St Peter's Church", sub: "20:30 · Cat. II · Sheilagh & Carol", status: "Confirmed",
+    kicker: "Concert · Sheilagh & Carol", panelTitle: "Classic Ensemble Vienna", panelSub: "Saturday 12 December 2026 · 20:30", isFlight: false,
+    fields: [ { label: "Sheilagh's order", value: "#111964 · 1 ticket · €59.00 · paid" }, { label: "Carol's order", value: "#114407 · 1 ticket · €59.00 · paid" }, { label: "Booked with", value: "RM Europa Tickets · vienna-concert.com" }, { label: "Event", value: "St Peters Church Concerts" }, { label: "Venue", value: "Peterskirche, St. Peter's Church, Vienna" }, { label: "Date and time", value: "12-12-2026, 20:30" }, { label: "Category", value: "Cat. II" }, { label: "Tickets", value: "2 (one each)" }, { label: "Price per ticket", value: "€59.00 · 0% system fee, 0% service charge" }, { label: "Total", value: "€118.00 · both paid" }, { label: "Booked for", value: "Sheilagh Macmillan Hall & Carol Graham" } ],
+    note: "Address: Petersplatz 1, 1010 Vienna, a nine-minute walk from Das Tigra. Arrive by about 20:00 to find your seats. Each of you needs your own QR code on your phone or printed; Sheilagh's and Carol's tickets are separate orders. The seats may not be together. Churches can be cool in December, so keep a layer on.", docs: [["Sheilagh's ticket with QR code", "St-Peters-concert-Sheilagh-QR.png"], ["Carol's ticket with QR code", "St-Peters-concert-Carol-QR.png"]], docName: "voucher" },
+
+  { group: "Tours & excursions", id: "e2", date: "2026-12-13", mon: "Dec", day: "13", title: "La Bohème, Vienna State Opera", sub: "18:00 · Category 2 · 2 tickets, seats together", status: "Paid",
+    kicker: "Opera · Sheilagh & Carol", panelTitle: "La Bohème", panelSub: "Sunday 13 December 2026 · 18:00 – 20:45", isFlight: false,
+    fields: [ { label: "Order number", value: "#111104" }, { label: "Booked with", value: "One Event · oneevent.at" }, { label: "Venue", value: "Vienna State Opera, Opernring 2, 1010 Vienna" }, { label: "Date and time", value: "Sunday 13 December, 18:00 – 20:45" }, { label: "Category", value: "Category 2 · seats next to one another" }, { label: "Tickets", value: "2" }, { label: "Total", value: "€652.00 · paid (invoice 03952)" }, { label: "Ticket pickup", value: "One Event, Opernring 1/E/536-537, 5th floor" }, { label: "Pickup hours", value: "Sat 12 Dec 13:00 – 17:00, or Sun 13 Dec 15:00 – 18:00" }, { label: "One Event phone", value: "+43 1 22 65565" } ],
+    note: "Collect the paper tickets first: One Event, Opernring 1/E/536-537, 5th floor, across from the State Opera in the passage between L'opéra Restaurant and Kaiser's. Take the left lifts in the Opernringhof building. Saturday 12 Dec 13:00 – 17:00 is best, or Sunday 13 Dec 15:00 – 18:00. The State Opera is at Opernring 2, about 15 – 20 minutes' walk from Das Tigra. Arrive by 17:30 to check coats at the cloakroom, which is expected. Dress smart: a dress or a smart top and trousers. Latecomers are usually only let in at the interval.", docs: [["One Event invoice (collect paper tickets)", "La-Boheme-invoice-03952.pdf"]], docName: "voucher" },
+
+  { group: "Visas & documents", id: "d1", date: "2026-12-04", mon: "Dec", day: "04", title: "Passport · British citizen", sub: "Valid to 17 February 2029", status: "Valid",
+    kicker: "Document", panelTitle: "United Kingdom passport", panelSub: "Sheilagh Macmillan Hall", isFlight: false,
+    fields: [ { label: "Surname", value: "Hall" }, { label: "Given names", value: "Sheilagh Macmillan" }, { label: "Nationality", value: "British citizen" }, { label: "Passport number", value: "554560322" }, { label: "Type / code", value: "P · GBR" }, { label: "Sex", value: "F" }, { label: "Date of birth", value: "26 February 1971" }, { label: "Place of birth", value: "Welkom" }, { label: "Date of issue", value: "17 May 2018" }, { label: "Date of expiry", value: "17 February 2029" }, { label: "Authority", value: "HMPO" } ],
+    note: "Valid until February 2029, well beyond the return date. No visa is needed for Switzerland, Austria or Czechia on this trip. On your first entry, at Zurich, you register fingerprints and a photo for Europe's new Entry/Exit System. Keep a photo of this page on your phone and a printed copy in your case, separate from the passport itself.", docs: [["Passport photo page", "Passport-Sheilagh-Hall.jpg"]], docName: "copy" }
+];
+
+const days = [
+  { label: "Day 1", date: "3 Dec", title: "Fly to Zurich", note: "Emirates EK 771 departs Cape Town 18:30, arriving Dubai 05:55 the next morning." },
+  { label: "Day 2", date: "4 Dec", title: "Arrive in Zurich", note: "EK 087 departs Dubai 08:25 and lands in Zurich 12:25. Staying with friends." },
+  { label: "Day 9", date: "11 Dec", title: "Zurich to Vienna · Carol arrives", note: "Austrian OS 134 departs Zurich 10:40, arriving Vienna 12:00.\nCarol lands on BA 694 at 13:30; the hotel transfer collects you both.\nCheck in at Boutique Hotel Das Tigra." },
+  { label: "Day 10", date: "12 Dec", title: "In Vienna", note: "Full day in Vienna.\nCollect the La Bohème tickets at One Event, 13:00 – 17:00.\nClassic Ensemble Vienna at St. Peter's Church, 20:30.\nCarol moves to Dan In'n Out on Salzgries for tonight." },
+  { label: "Day 11", date: "13 Dec", title: "La Bohème at the State Opera", note: "Free day in Vienna.\nLa Bohème at the Vienna State Opera with Carol, 18:00 – 20:45." },
+  { label: "Day 12", date: "14 Dec", title: "Train to Prague", note: "Check out of Das Tigra by 11:00.\nÖBB Railjet RJ 250 departs Wien Hauptbahnhof 13:10, arriving Praha-Holešovice 17:25.\nOn to the apartment in Karlín, about 5 km away." },
+  { label: "Day 21", date: "23 Dec", title: "Fly home from Prague", note: "EK 140 departs Prague 14:45, arriving Dubai 23:40." },
+  { label: "Day 22", date: "24 Dec", title: "Arrive in Cape Town", note: "EK 772 departs Dubai 03:50 and lands in Cape Town 11:40." }
+];
+
+const notes = [
+  { id: "todo", title: "Still to arrange", items: [
+    "Holafly eSIM: Sheilagh tried and couldn't get it working on her iPhone 16 Pro. Help her install it, or she buys a SIM at Zurich airport.",
+    "Pickup from Praha-Holešovice (train arrives 17:25) to the apartment on Křižíkova 97, Karlín, on 14 December."
+  ] },
+  { id: "leave", title: "Before you leave", items: [
+    "Check in online for EK 771 when it opens 48 hours before, and save the boarding pass to your phone.",
+    "Print the ÖBB train ticket in A4, portrait, on white paper. It can't be shown on a phone once the train crosses into Czechia.",
+    "Save offline copies of your passport page, tickets and hotel vouchers on your phone. Pack a paper copy separately from the passport.",
+    "Download your medical aid card and travel insurance details, and keep them available offline.",
+    "Tell your bank you're travelling so your cards aren't blocked the first time you use them abroad.",
+    "Share this itinerary with a family member at home."
+  ] },
+  { id: "entry", title: "Passport & entry", items: [
+    "With a British passport you don't need a visa for Switzerland, Austria or Czechia for a stay like this.",
+    "Europe's new Entry/Exit System is now in use. On your first entry, at Zurich passport control, you register your fingerprints and a photo, so allow extra time there.",
+    "When you fly home from Prague on 23 December you're registered out again, so leave time at passport control.",
+    "The ETIAS travel permit isn't in operation yet, so there's nothing to apply for before this trip.",
+    "Your passport is valid until February 2029, well beyond the trip."
+  ] },
+  { id: "bags", title: "Luggage", items: [
+    "Emirates allows 2 checked bags of 23 kg each, plus a 7 kg cabin bag.",
+    "The Austrian flight from Zurich to Vienna allows only 1 checked bag (23 kg) and an 8 kg cabin bag. A second bag costs extra, so pay for it online in advance rather than at the airport.",
+    "Trains have no weight limit, but you'll need to lift your case onto the rack yourself.",
+    "Keep medication, valuables, chargers and one change of clothes in your cabin bag."
+  ] },
+  { id: "pack", title: "What to pack", items: [
+    "December in Zurich, Vienna and Prague runs roughly −3°C to 4°C, and it's often wet underfoot.",
+    "A properly warm coat, waterproof boots with grip, gloves, a scarf and a hat.",
+    "Thermal base layers.",
+    "A smart outfit for the State Opera and the St Peter's concert. Smart-casual is fine, but leave trainers and outdoor jackets in the cloakroom.",
+    "Layers you can take off indoors. Museums, cafés and restaurants are heated warm.",
+    "Moisturiser and lip balm. The cold and the indoor heating are drying.",
+    "Plug adapters: type J for Switzerland, type C or F for Austria and Czechia.",
+    "A small cross-body bag with a zip for markets and crowds."
+  ] },
+  { id: "markets", title: "Christmas markets", items: [
+    "Zurich: the indoor Christkindlimarkt in the main station, and the Wienachtsdorf at Sechseläutenplatz by the lake.",
+    "Vienna: Am Hof is a few minutes' walk from Das Tigra. Rathausplatz is the biggest, and Spittelberg is small and crafty.",
+    "Prague: Old Town Square and Wenceslas Square, both easy to reach from Karlín by tram or metro.",
+    "Markets are busiest from about 17:00 and at weekends. Weekday afternoons are calmer.",
+    "Most stalls take cards now, but carry a little cash. Mugs for mulled wine carry a deposit you get back when you return them."
+  ] },
+  { id: "safety", title: "Safety & emergencies", items: [
+    "Emergency number in all three countries: 112.",
+    "Pickpockets work the Christmas markets, trams and busy stations. Keep your bag zipped and in front of you.",
+    "Keep your passport in the hotel safe on city days, and carry a photo of it. Take the passport itself on travel days.",
+    "Use Bolt, Uber or the official taxi ranks rather than drivers who approach you.",
+    "All three cities are safe to walk around in the evening in the centre. Stick to well-lit main streets after dark.",
+    "If anything changes or goes wrong, contact IKO Travel on WhatsApp and we'll sort it out."
+  ] },
+  { id: "connect", title: "Connectivity & apps", items: [
+    "An eSIM is the easiest option. Holafly covers all three countries with unlimited data.",
+    "Switzerland isn't in the EU, so check that any data plan covers it.",
+    "Free wifi is normal in cafés, hotels and on the trains.",
+    "Download offline maps for each city before you land.",
+    "Apps: Emirates and Austrian Airlines for boarding passes and delay alerts, SBB Mobile for Swiss trains, WienMobil for Vienna transport, and PID Lítačka for Prague transport tickets.",
+    "Bolt and Uber both work in Vienna and Prague.",
+    "Save Google Translate's German and Czech for offline use."
+  ] },
+  { id: "money", title: "Money & payment", items: [
+    "Three currencies: Swiss francs (CHF), euros in Austria (EUR) and Czech koruna (CZK).",
+    "Cards and phone payments work almost everywhere.",
+    "Draw cash from bank ATMs rather than airport bureaux, and always decline the offer to charge you in rand.",
+    "Avoid Euronet machines in Prague. Their rates are poor and their fees are high.",
+    "Tipping is modest: round up, or add 5–10% for table service."
+  ] },
+  { id: "around", title: "Getting around", items: [
+    "Zurich: trains from the airport to Zürich HB run every few minutes and take about 10 minutes.",
+    "Vienna: the U3 stop Herrengasse is closest to Das Tigra. A 24- or 48-hour pass covers the U-Bahn, trams and buses.",
+    "Prague: Karlín has trams and the metro (Křižíkova station is on line B). Buy tickets in the PID Lítačka app.",
+    "Validate paper tickets before boarding. Inspectors do check, and fines are issued on the spot.",
+    "All three centres are walkable, but cobbles and pavements can be icy. Wear boots with grip."
+  ] },
+  { id: "etiquette", title: "Destination etiquette", items: [
+    "Greet when you walk into a shop: Grüezi in Zurich, Grüss Gott in Vienna, Dobrý den in Prague.",
+    "Punctuality matters, especially in Switzerland.",
+    "Keep your voice down on public transport and in restaurants.",
+    "Most shops close on Sundays in Zurich and Vienna. Plan grocery runs for Saturday.",
+    "Ask before photographing people at markets or in churches."
+  ] },
+  { id: "dontforget", title: "Don't forget", items: [
+    "Passport, and the printed ÖBB train ticket.",
+    "Plug adapters: type J for Switzerland, type C or F for Austria and Czechia.",
+    "Power bank, in the cabin bag only.",
+    "Any prescription medication in its original packaging, with the prescription.",
+    "Collect the La Bohème tickets on Saturday 12 December.",
+    "Space in your case for whatever the markets produce."
+  ] }
+];
+
+return { bookings, days, notes };
+})();
+
+class Component extends DCLogic {
+  state = { data: ITINERARY_DATA, openId: null, openNote: null, openGroups: {}, viewDoc: null, budOpen: false, done: {}, wide: typeof window !== "undefined" && window.innerWidth >= 900 };
+
+  componentDidMount() {
+    this._onResize = () => {
+      const w = window.innerWidth >= 900;
+      if (w !== this.state.wide) this.setState({ wide: w });
+    };
+    window.addEventListener("resize", this._onResize);
+    this._tick = setInterval(() => this.forceUpdate(), 900000);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this._onResize);
+    clearInterval(this._tick);
+  }
+
+  renderVals() {
+    const all = (this.state.data && this.state.data.bookings) || [];
+    const days = (this.state.data && this.state.data.days) || [];
+    const notes = ((this.state.data && this.state.data.notes) || []).map(n => {
+      const open = this.state.openNote === n.id;
+      const task = n.id === "todo" || n.id === "leave" || n.id === "dontforget";
+      const items = n.items.map((text, i) => {
+        const key = n.id + i;
+        const on = !!this.state.done[key];
+        return {
+          text, task, bullet: !task, cursor: task ? "pointer" : "default",
+          mark: on ? "✓" : "", ring: on ? "#5f6d4e" : "#a9ae9f", fill: on ? "#5f6d4e" : "transparent",
+          color: task && on ? "#8a8f82" : "#454a41",
+          toggle: task ? () => this.setState(st => ({ done: { ...st.done, [key]: !st.done[key] } })) : undefined
+        };
+      });
+      return { title: n.title, items, open, sign: open ? "–" : "+",
+        toggle: () => this.setState(st => ({ openNote: st.openNote === n.id ? null : n.id })) };
+    });
+    const order = ["Flights", "Stays", "Transfers & trains", "Tours & excursions", "Visas & documents"];
+    const groups = order.map(t => {
+      const items = all.filter(b => b.group === t)
+        .slice()
+        .sort((a, b) => String(a.date || "").localeCompare(String(b.date || "")))
+        .map(b => {
+        const on = b.id === this.state.openId;
+        return {
+          mon: b.mon, day: b.day, title: b.title, sub: b.sub, status: b.status,
+          tone: b.status === "Not booked" ? "warn" : (b.status === "Change sent" ? "wait" : ""),
+          bg: on ? "#f2f4ee" : "#ffffff", border: on ? "#5f6d4e" : "#e7e9e2",
+          open: () => { this._y = window.scrollY; this.setState({ openId: b.id }, () => window.scrollTo(0, 0)); }
+        };
+      });
+      const open = !!this.state.openGroups[t];
+      return { title: t, count: items.length === 1 ? "1 booking" : items.length + " bookings", items,
+        open, expanded: open ? "true" : "false", sign: open ? "–" : "+",
+        toggle: () => this.setState(st => ({ openGroups: { ...st.openGroups, [t]: !st.openGroups[t] } })) };
+    }).filter(g => g.items.length > 0);
+
+    const shape = b => ({
+      kicker: b.kicker, title: b.panelTitle, sub: b.panelSub, isFlight: !!b.isFlight,
+      carrier: b.carrier, from: b.from, fromName: b.fromName, to: b.to, toName: b.toName,
+      depTime: b.depTime, arrTime: b.arrTime, duration: b.duration, passStats: b.passStats || [],
+      eticket: b.eticket, fields: b.fields || [], note: b.note, docName: b.docName,
+      docs: (b.docs || []).map(d => { const doc = { label: d[0], href: "docs/" + d[1], file: d[1], pages: (DOC_PAGES[d[1]] || []).map((s, i, a) => ({ src: s, alt: d[0] + (a.length > 1 ? ", page " + (i + 1) + " of " + a.length : "") })) }; doc.view = () => this.setState({ viewDoc: doc }); return doc; }), links: (b.links || []).map(l => ({ label: l[0], href: l[1] })), noDocs: !(b.docs || []).length && !(b.links || []).length
+    });
+    const opened = all.find(x => x.id === this.state.openId);
+    const seed = { kicker: "Flight · outbound", panelTitle: "JNB → JRO", panelSub: "Monday 14 September 2026", docName: "ticket" };
+
+    const parts = String(this.props.departDate ?? "2026-12-03").split("-").map(Number);
+    const dep = new Date(parts[0], (parts[1] || 1) - 1, parts[2] || 1);
+    const diff = Math.ceil((dep - new Date()) / 86400000);
+    const countdown = diff > 1 ? "Departs in " + diff + " days" : diff === 1 ? "Departs tomorrow" : diff === 0 ? "Departs today" : "In progress";
+
+    return {
+      isWide: (this.props.layout ?? "Responsive") === "Desktop" ? true : (this.props.layout === "Mobile" ? false : this.state.wide),
+      isNarrow: (this.props.layout ?? "Responsive") === "Mobile" ? true : (this.props.layout === "Desktop" ? false : !this.state.wide),
+      countdown, groups, days, notes,
+      showNotes: this.props.showNotes ?? true,
+      sel: opened ? shape(opened) : null,
+      hasSel: !!opened, noSel: !opened,
+      pane: shape(opened || all[0] || seed),
+      showRoute: this.props.showRoute ?? true,
+      budOpen: this.state.budOpen, budExpanded: this.state.budOpen ? "true" : "false", budSign: this.state.budOpen ? "–" : "+",
+      toggleBud: () => this.setState(st => ({ budOpen: !st.budOpen })),
+      bud: {"total": "R83,034.00", "used": "R81,447.30", "left": "R1,586.70", "pct": "98.1%", "pctLabel": "98% of the budget used", "groups": [{"title": "Flights", "rows": [{"name": "Return flights (CPT–ZRH · PRG–CPT)", "budget": "R16,500.00", "used": "R15,305.80", "left": "R1,194.20", "tone": "under"}, {"name": "One-way flight (ZRH–VIE)", "budget": "R6,250.00", "used": "R6,332.86", "left": "R82.86 over", "tone": "over"}]}, {"title": "Trains", "rows": [{"name": "ÖBB train (VIE–PRG)", "budget": "R750.00", "used": "R610.87", "left": "R139.13", "tone": "under"}]}, {"title": "Accommodation", "rows": [{"name": "Sheilagh: Das Tigra (2 nights)", "budget": "R16,500.00", "used": "R17,958.70", "left": "R1,458.70 over", "tone": "over"}, {"name": "Sheilagh: extra Das Tigra night", "budget": "R5,000.00", "used": "R4,314.91", "left": "R685.09", "tone": "under"}, {"name": "Carol: Das Tigra (2 nights)", "budget": "R15,000.00", "used": "R15,247.12", "left": "R47.12 over", "tone": "over"}, {"name": "Carol: Dan In'n Out (1 night)", "budget": "R7,200.00", "used": "R6,718.09", "left": "R581.91", "tone": "under"}]}, {"title": "Events", "rows": [{"name": "Sheilagh: St Peter's concert", "budget": "R1,300.00", "used": "R16.68", "left": "R1,283.32", "tone": "under"}, {"name": "Carol: St Peter's concert", "budget": "R1,100.00", "used": "R1,120.94", "left": "R20.94 over", "tone": "over"}, {"name": "La Bohème × 2 tickets", "budget": "R12,000.00", "used": "R12,387.33", "left": "R387.33 over", "tone": "over"}]}, {"title": "Planning & booking", "rows": [{"name": "Planning fee", "budget": "R1,434.00", "used": "R1,434.00", "left": "R0.00", "tone": ""}]}]},
+      weather: [{"city": "Zurich", "dates": "4 – 11 Dec", "high": "4°", "low": "/ −2°C", "note": "Grey and damp, with frost overnight. Snow is possible. It's dark by about 16:30."}, {"city": "Vienna", "dates": "11 – 14 Dec", "high": "4°", "low": "/ −1°C", "note": "Cold and often windy, so the wind makes it feel colder. Dark by about 16:00. Markets are at their best after dark."}, {"city": "Prague", "dates": "14 – 23 Dec", "high": "2°", "low": "/ −3°C", "note": "The coldest of the three, with icy cobbles and a chance of snow. Dark by about 16:00."}],
+      wxColsNarrow: "grid-template-columns:1fr",
+      showTimeline: this.props.showTimeline ?? true,
+      showStatus: this.props.showStatus ?? true,
+      route: [
+        { code: "CPT", name: "Cape Town", dates: "Departs 3 Dec" },
+        { code: "ZRH", name: "Zurich", dates: "4 – 11 Dec" },
+        { code: "VIE", name: "Vienna", dates: "11 – 14 Dec" },
+        { code: "PRG", name: "Prague", dates: "14 – 23 Dec" },
+        { code: "CPT", name: "Cape Town", dates: "Home 24 Dec" }
+      ],
+      viewing: !!this.state.viewDoc, viewDoc: this.state.viewDoc || { label: "", href: "", file: "", pages: [] },
+      closeView: () => this.setState({ viewDoc: null }),
+      viewItinerary: () => this.setState({ viewDoc: { label: "Itinerary · print-ready PDF", href: "Festive-European-Winter-itinerary.pdf", file: "Festive-European-Winter-itinerary.pdf", pages: DOC_PAGES["Festive-European-Winter-itinerary.pdf"].map((s, i, a) => ({ src: s, alt: "Itinerary page " + (i + 1) + " of " + a.length })) } }),
+      close: () => { const y = this._y || 0; this.setState({ openId: null }, () => window.scrollTo(0, y)); },
+      print: () => window.print()
+    };
+  }
+}
+</script>
+</body>
+</html>
