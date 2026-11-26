@@ -151,6 +151,7 @@ a.btn { text-decoration: none; }
   .bud-stat { flex-direction: row; align-items: baseline; justify-content: space-between; padding: 10px 14px; }
   .bud-stat strong { font-size: 1.35rem; }
 }
+.minibar { background: var(--band); border-bottom: 1px solid var(--line); }
 .back { all: unset; box-sizing: border-box; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 14px 26px; font-size: 13px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid var(--line); background: var(--surface); }
 .back:hover { color: var(--ink); background: var(--soft); }
 .back:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
@@ -164,6 +165,7 @@ a.btn { text-decoration: none; }
 <sc-if value="{{ isWide }}" hint-placeholder-val="{{ false }}">
 <div style="width:100%;min-height:100vh;background:#fbfbf8">
 
+  <sc-if value="{{ noSel }}" hint-placeholder-val="{{ true }}">
   <div class="hero">
     <div style="max-width:1320px;margin:0 auto;padding:36px 40px 40px;display:flex;flex-direction:column;gap:30px">
       <div class="brand">
@@ -186,6 +188,11 @@ a.btn { text-decoration: none; }
       </div>
     </div>
   </div>
+  </sc-if>
+  <sc-if value="{{ hasSel }}" hint-placeholder-val="{{ false }}">
+  <div class="minibar"><div style="max-width:920px;margin:0 auto;padding:14px 40px;display:flex;align-items:baseline;gap:14px"><span class="mark" style="font-size:18px">IKO</span><span class="lbl">Festive European Winter</span></div></div>
+  </sc-if>
+
 
   <sc-if value="{{ noSel }}" hint-placeholder-val="{{ true }}">
   <sc-if value="{{ showRoute }}" hint-placeholder-val="{{ true }}">
@@ -355,7 +362,7 @@ a.btn { text-decoration: none; }
   </div>
   </sc-if>
   <sc-if value="{{ hasSel }}" hint-placeholder-val="{{ false }}">
-  <div style="max-width:920px;margin:0 auto;padding:36px 40px 72px">
+  <div style="max-width:920px;margin:0 auto;padding:24px 40px 72px">
     <article class="panel" style="overflow:hidden;display:flex;flex-direction:column">
       <button type="button" class="back" onClick="{{ close }}">← Back to your itinerary</button>
       <div style="padding:28px 30px 32px;display:flex;flex-direction:column;gap:22px">
@@ -459,6 +466,7 @@ a.btn { text-decoration: none; }
 
   <div>
 
+    <sc-if value="{{ noSel }}" hint-placeholder-val="{{ true }}">
     <div class="hero" style="padding:26px 20px 28px;display:flex;flex-direction:column;gap:24px">
       <div class="brand"><span class="mark" style="font-size:20px">IKO</span><span class="lbl">Travel itinerary</span></div>
       <div style="display:flex;flex-direction:column;gap:12px">
@@ -477,6 +485,11 @@ a.btn { text-decoration: none; }
         <a class="btn" href="Festive-European-Winter-all-documents.pdf" download="Festive-European-Winter-all-documents.pdf" style="flex:1 1 140px">All documents</a>
       </div>
     </div>
+    </sc-if>
+    <sc-if value="{{ hasSel }}" hint-placeholder-val="{{ false }}">
+    <div class="minibar"><div style="padding:12px 20px;display:flex;align-items:baseline;gap:12px"><span class="mark" style="font-size:16px">IKO</span><span class="lbl">Festive European Winter</span></div></div>
+    </sc-if>
+
 
     <sc-if value="{{ noSel }}" hint-placeholder-val="{{ true }}">
     <div style="padding:8px 20px 20px">
@@ -747,7 +760,7 @@ a.btn { text-decoration: none; }
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;layout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Responsive&quot;,&quot;Mobile&quot;,&quot;Desktop&quot;],&quot;default&quot;:&quot;Responsive&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Preview&quot;},&quot;departDate&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;2026-12-03&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Trip&quot;},&quot;showRoute&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;},&quot;showTimeline&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;},&quot;showNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;},&quot;showStatus&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
-const DOC_PAGES = {"Festive-European-Winter-itinerary.pdf": ["view/Itinerary-01.jpg", "view/Itinerary-02.jpg", "view/Itinerary-03.jpg", "view/Itinerary-04.jpg", "view/Itinerary-05.jpg", "view/Itinerary-06.jpg", "view/Itinerary-07.jpg", "view/Itinerary-08.jpg", "view/Itinerary-09.jpg", "view/Itinerary-10.jpg", "view/Itinerary-11.jpg", "view/Itinerary-12.jpg", "view/Itinerary-13.jpg", "view/Itinerary-14.jpg", "view/Itinerary-15.jpg", "view/Itinerary-16.jpg", "view/Itinerary-17.jpg"], "Airport-transfer-change-confirmation.pdf": ["view/Airport-transfer-change-confirmation-1.jpg"], "Airport-transfer-original-confirmation.png": ["view/Airport-transfer-original-confirmation.jpg"], "Austrian-OS134-booking-8XSETE.pdf": ["view/Austrian-OS134-booking-8XSETE-1.jpg", "view/Austrian-OS134-booking-8XSETE-2.jpg", "view/Austrian-OS134-booking-8XSETE-3.jpg"], "Austrian-OS134-receipt.pdf": ["view/Austrian-OS134-receipt-1.jpg", "view/Austrian-OS134-receipt-2.jpg"], "Dan-In-n-Out-Carol-check-in-voucher.pdf": ["view/Dan-In-n-Out-Carol-check-in-voucher-1.jpg"], "Dan-In-n-Out-Carol-receipt.pdf": ["view/Dan-In-n-Out-Carol-receipt-1.jpg"], "Das-Tigra-Carol-11-12-Dec-invoice.pdf": ["view/Das-Tigra-Carol-11-12-Dec-invoice-1.jpg"], "Das-Tigra-Carol-13-14-Dec-invoice.pdf": ["view/Das-Tigra-Carol-13-14-Dec-invoice-1.jpg"], "Das-Tigra-Sheilagh-11-13-Dec.pdf": ["view/Das-Tigra-Sheilagh-11-13-Dec-1.jpg", "view/Das-Tigra-Sheilagh-11-13-Dec-2.jpg", "view/Das-Tigra-Sheilagh-11-13-Dec-3.jpg"], "Das-Tigra-Sheilagh-13-14-Dec-invoice.pdf": ["view/Das-Tigra-Sheilagh-13-14-Dec-invoice-1.jpg"], "Emirates-e-ticket-KPA3JW.pdf": ["view/Emirates-e-ticket-KPA3JW-1.jpg", "view/Emirates-e-ticket-KPA3JW-2.jpg", "view/Emirates-e-ticket-KPA3JW-3.jpg", "view/Emirates-e-ticket-KPA3JW-4.jpg"], "La-Boheme-invoice-03952.pdf": ["view/La-Boheme-invoice-03952-1.jpg"], "OEBB-train-ticket-Vienna-Prague.pdf": ["view/OEBB-train-ticket-Vienna-Prague-1.jpg", "view/OEBB-train-ticket-Vienna-Prague-2.jpg"], "Passport-Sheilagh-Hall.jpg": ["view/Passport-Sheilagh-Hall.jpg"], "St-Peters-concert-Carol-QR.png": ["view/St-Peters-concert-Carol-QR.jpg"], "St-Peters-concert-Sheilagh-QR.png": ["view/St-Peters-concert-Sheilagh-QR.jpg"]};
+const DOC_PAGES = {"Festive-European-Winter-itinerary.pdf": ["view/Itinerary-01.jpg", "view/Itinerary-02.jpg", "view/Itinerary-03.jpg", "view/Itinerary-04.jpg", "view/Itinerary-05.jpg", "view/Itinerary-06.jpg", "view/Itinerary-07.jpg", "view/Itinerary-08.jpg", "view/Itinerary-09.jpg", "view/Itinerary-10.jpg", "view/Itinerary-11.jpg", "view/Itinerary-12.jpg", "view/Itinerary-13.jpg", "view/Itinerary-14.jpg", "view/Itinerary-15.jpg", "view/Itinerary-16.jpg", "view/Itinerary-17.jpg"], "Airport-transfer-change-confirmation.pdf": ["view/Airport-transfer-change-confirmation-1.jpg"], "Airport-transfer-original-confirmation.png": ["view/Airport-transfer-original-confirmation.jpg"], "Austrian-OS134-booking-8XSETE.pdf": ["view/Austrian-OS134-booking-8XSETE-1.jpg", "view/Austrian-OS134-booking-8XSETE-2.jpg", "view/Austrian-OS134-booking-8XSETE-3.jpg"], "Austrian-OS134-receipt.pdf": ["view/Austrian-OS134-receipt-1.jpg", "view/Austrian-OS134-receipt-2.jpg"], "Dan-In-n-Out-Carol-check-in-voucher.pdf": ["view/Dan-In-n-Out-Carol-check-in-voucher-1.jpg"], "Dan-In-n-Out-Carol-receipt.pdf": ["view/Dan-In-n-Out-Carol-receipt-1.jpg"], "Das-Tigra-Carol-11-12-Dec-invoice.pdf": ["view/Das-Tigra-Carol-11-12-Dec-invoice-1.jpg"], "Das-Tigra-Carol-13-14-Dec-invoice.pdf": ["view/Das-Tigra-Carol-13-14-Dec-invoice-1.jpg"], "Das-Tigra-Sheilagh-11-13-Dec.pdf": ["view/Das-Tigra-Sheilagh-11-13-Dec-1.jpg", "view/Das-Tigra-Sheilagh-11-13-Dec-2.jpg", "view/Das-Tigra-Sheilagh-11-13-Dec-3.jpg"], "Das-Tigra-Sheilagh-13-14-Dec-invoice.pdf": ["view/Das-Tigra-Sheilagh-13-14-Dec-invoice-1.jpg"], "Emirates-e-ticket-KPA3JW.pdf": ["view/Emirates-e-ticket-KPA3JW-1.jpg", "view/Emirates-e-ticket-KPA3JW-2.jpg", "view/Emirates-e-ticket-KPA3JW-3.jpg", "view/Emirates-e-ticket-KPA3JW-4.jpg"], "La-Boheme-invoice-03952.pdf": ["view/La-Boheme-invoice-03952-1.jpg"], "OEBB-train-ticket-Vienna-Prague.pdf": ["view/OEBB-train-ticket-Vienna-Prague-1.jpg", "view/OEBB-train-ticket-Vienna-Prague-2.jpg"], "Passport-Sheilagh-Hall.jpg": ["view/Passport-Sheilagh-Hall.jpg"], "Ahlan-Lounge-DXB-ticket-QR.png": ["view/Ahlan-Lounge-DXB-ticket-QR.jpg"], "Bidvest-Premier-Lounge-CPT-voucher.pdf": ["view/Bidvest-Premier-Lounge-CPT-voucher-1.jpg"], "Ahlan-Lounge-DXB-GetYourGuide-GYGN6BQZHHNZ.pdf": ["view/Ahlan-Lounge-DXB-GetYourGuide-GYGN6BQZHHNZ-1.jpg", "view/Ahlan-Lounge-DXB-GetYourGuide-GYGN6BQZHHNZ-2.jpg", "view/Ahlan-Lounge-DXB-GetYourGuide-GYGN6BQZHHNZ-3.jpg", "view/Ahlan-Lounge-DXB-GetYourGuide-GYGN6BQZHHNZ-4.jpg"], "St-Peters-concert-Carol-QR.png": ["view/St-Peters-concert-Carol-QR.jpg"], "St-Peters-concert-Sheilagh-QR.png": ["view/St-Peters-concert-Sheilagh-QR.jpg"]};
 
 const ITINERARY_DATA = (function () {
 const PAX = "HALL / SHEILAGH MACMILLAN MRS";
@@ -849,6 +862,16 @@ const bookings = [
     fields: [ { label: "Order number", value: "#111104" }, { label: "Booked with", value: "One Event · oneevent.at" }, { label: "Venue", value: "Vienna State Opera, Opernring 2, 1010 Vienna" }, { label: "Date and time", value: "Sunday 13 December, 18:00 – 20:45" }, { label: "Category", value: "Category 2 · seats next to one another" }, { label: "Tickets", value: "2" }, { label: "Total", value: "€652.00 · paid (invoice 03952)" }, { label: "Ticket pickup", value: "One Event, Opernring 1/E/536-537, 5th floor" }, { label: "Pickup hours", value: "Sat 12 Dec 13:00 – 17:00, or Sun 13 Dec 15:00 – 18:00" }, { label: "One Event phone", value: "+43 1 22 65565" } ],
     note: "Collect the paper tickets first: One Event, Opernring 1/E/536-537, 5th floor, across from the State Opera in the passage between L'opéra Restaurant and Kaiser's. Take the left lifts in the Opernringhof building. Saturday 12 Dec 13:00 – 17:00 is best, or Sunday 13 Dec 15:00 – 18:00. The State Opera is at Opernring 2, about 15 – 20 minutes' walk from Das Tigra. Arrive by 17:30 to check coats at the cloakroom, which is expected. Dress smart: a dress or a smart top and trousers. Latecomers are usually only let in at the interval.", docs: [["One Event invoice (collect paper tickets)", "La-Boheme-invoice-03952.pdf"]], docName: "voucher" },
 
+  { group: "Lounges", id: "l1", date: "2026-12-03", mon: "Dec", day: "03", title: "Bidvest Premier Lounge, Cape Town", sub: "International departures · before EK 771 · from 14:30", status: "Paid",
+    kicker: "Airport lounge · Cape Town", panelTitle: "Bidvest Premier Lounge", panelSub: "Thursday 3 December 2026 · Cape Town International", isFlight: false,
+    fields: [ { label: "Voucher number", value: "OB0091920474" }, { label: "Invoice", value: "IN88357" }, { label: "Lounge", value: "Bidvest Premier Lounge · International" }, { label: "Airport", value: "Cape Town International, international departures" }, { label: "Before flight", value: "Emirates EK 771 · departs 18:30" }, { label: "Access", value: "Up to 4 hours before departure (from 14:30), subject to availability" }, { label: "Guest", value: "Sheilagh Macmillan Hall" }, { label: "Paid", value: "R638.00 · 26 Nov 2026" }, { label: "Voucher valid to", value: "26 November 2029" }, { label: "Queries", value: "bidvestlounge@bidvestlounge.co.za · 011 390 8668" } ],
+    note: "Check in for EK 771 and go through passport control and security first; the lounge is airside in international departures. Show the voucher QR code at the desk (printed, or on your phone) together with your boarding pass. Entry is from 14:30, four hours before departure, and is subject to space, so arriving earlier in the window is better. Watch the boards: boarding usually starts about 45 minutes before departure.", docs: [["Lounge voucher with QR code", "Bidvest-Premier-Lounge-CPT-voucher.pdf"]], docName: "voucher" },
+
+  { group: "Lounges", id: "l2", date: "2026-12-23", mon: "Dec", day: "23", title: "Ahlan Lounge, Dubai Terminal 3", sub: "Night of 23 – 24 Dec · 3 hours · before EK 772", status: "Paid",
+    kicker: "Airport lounge · Dubai transit", panelTitle: "Ahlan Lounge, Dubai T3", panelSub: "Night of 23 – 24 December 2026 · 3-hour visit", isFlight: false,
+    fields: [ { label: "Ticket number", value: "8576 1539 9660 0699 (QR code attached)" }, { label: "Booking reference", value: "GYGN6BQZHHNZ" }, { label: "Dragonpass ref", value: "GYGN6BQZHHNZ_5u7cw" }, { label: "PIN", value: "HQDBRbD+" }, { label: "Booked with", value: "GetYourGuide · provider Dragonpass" }, { label: "Lounge", value: "T3 International Departures: Ahlan Lounge Executive Floor" }, { label: "Ticket valid", value: "Thu 24 Dec only, 00:00 – 23:59" }, { label: "Visit", value: "1 adult · one visit of up to 3 hours" }, { label: "Between flights", value: "EK 140 lands 23:40 · EK 772 departs 03:50" }, { label: "Reservation", value: "None needed: go straight to the lounge" }, { label: "Paid", value: "R702.00" }, { label: "Free cancellation", value: "Until 00:00 on 23 December" } ],
+    note: "After landing on EK 140 at 23:40, follow the Transfers signs in Terminal 3; there's no passport control in transit. The confirmation points to the Ahlan Lounge Executive Floor next to gate B22 on the departure level (a temporary spot while the main lounge is renovated), and Dragonpass also lists Ahlan lounges at gates C13 and A1, so check the gate signs or ask at the transfer desk. The ticket is valid on 24 December only, so you can go in from midnight (you land at 23:40, so by the time you reach the lounge it will be after 00:00). Show the QR code ticket attached below, on your phone or printed. The visit is up to 3 hours, so go in by about 00:30 to be out in time for boarding, which starts roughly 45 minutes before the 03:50 departure. Entry is subject to space; if it's full you can wait or ask for a refund.", docs: [["Lounge ticket with QR code", "Ahlan-Lounge-DXB-ticket-QR.png"], ["GetYourGuide confirmation", "Ahlan-Lounge-DXB-GetYourGuide-GYGN6BQZHHNZ.pdf"]], docName: "voucher" },
+
   { group: "Visas & documents", id: "d1", date: "2026-12-04", mon: "Dec", day: "04", title: "Passport · British citizen", sub: "Valid to 17 February 2029", status: "Valid",
     kicker: "Document", panelTitle: "United Kingdom passport", panelSub: "Sheilagh Macmillan Hall", isFlight: false,
     fields: [ { label: "Surname", value: "Hall" }, { label: "Given names", value: "Sheilagh Macmillan" }, { label: "Nationality", value: "British citizen" }, { label: "Passport number", value: "554560322" }, { label: "Type / code", value: "P · GBR" }, { label: "Sex", value: "F" }, { label: "Date of birth", value: "26 February 1971" }, { label: "Place of birth", value: "Welkom" }, { label: "Date of issue", value: "17 May 2018" }, { label: "Date of expiry", value: "17 February 2029" }, { label: "Authority", value: "HMPO" } ],
@@ -856,13 +879,13 @@ const bookings = [
 ];
 
 const days = [
-  { label: "Day 1", date: "3 Dec", title: "Fly to Zurich", note: "Emirates EK 771 departs Cape Town 18:30, arriving Dubai 05:55 the next morning." },
+  { label: "Day 1", date: "3 Dec", title: "Fly to Zurich", note: "Bidvest Premier Lounge in international departures, open to you from 14:30.\nEmirates EK 771 departs Cape Town 18:30, arriving Dubai 05:55 the next morning." },
   { label: "Day 2", date: "4 Dec", title: "Arrive in Zurich", note: "EK 087 departs Dubai 08:25 and lands in Zurich 12:25. Staying with friends." },
   { label: "Day 9", date: "11 Dec", title: "Zurich to Vienna · Carol arrives", note: "Austrian OS 134 departs Zurich 10:40, arriving Vienna 12:00.\nCarol lands on BA 694 at 13:30; the hotel transfer collects you both.\nCheck in at Boutique Hotel Das Tigra." },
-  { label: "Day 10", date: "12 Dec", title: "In Vienna", note: "Full day in Vienna.\nCollect the La Bohème tickets at One Event, 13:00 – 17:00.\nClassic Ensemble Vienna at St. Peter's Church, 20:30.\nCarol moves to Dan In'n Out on Salzgries for tonight." },
-  { label: "Day 11", date: "13 Dec", title: "La Bohème at the State Opera", note: "Free day in Vienna.\nLa Bohème at the Vienna State Opera with Carol, 18:00 – 20:45." },
-  { label: "Day 12", date: "14 Dec", title: "Train to Prague", note: "Check out of Das Tigra by 11:00.\nÖBB Railjet RJ 250 departs Wien Hauptbahnhof 13:10, arriving Praha-Holešovice 17:25.\nOn to the apartment in Karlín, about 5 km away." },
-  { label: "Day 21", date: "23 Dec", title: "Fly home from Prague", note: "EK 140 departs Prague 14:45, arriving Dubai 23:40." },
+  { label: "Day 10", date: "12 Dec", title: "In Vienna", note: "Full day in Vienna.\nCarol checks out of Das Tigra by 11:00 and moves to Dan In'n Out, Salzgries 21, for one night (check-in from 12:00).\nCollect the La Bohème tickets at One Event, 13:00 – 17:00.\nClassic Ensemble Vienna at St. Peter's Church, 20:30." },
+  { label: "Day 11", date: "13 Dec", title: "La Bohème at the State Opera", note: "Free day in Vienna.\nCarol checks out of Dan In'n Out by 10:00 and moves back to Das Tigra. She can leave her bag at reception; her room is ready from 15:00.\nLa Bohème at the Vienna State Opera with Carol, 18:00 – 20:45." },
+  { label: "Day 12", date: "14 Dec", title: "Train to Prague", note: "Sheilagh and Carol check out of Das Tigra by 11:00.\nÖBB Railjet RJ 250 departs Wien Hauptbahnhof 13:10, arriving Praha-Holešovice 17:25.\nOn to the apartment in Karlín, about 5 km away." },
+  { label: "Day 21", date: "23 Dec", title: "Fly home from Prague", note: "EK 140 departs Prague 14:45, arriving Dubai 23:40.\nRelax in the Ahlan Lounge in Terminal 3 (3 hours) before the flight home." },
   { label: "Day 22", date: "24 Dec", title: "Arrive in Cape Town", note: "EK 772 departs Dubai 03:50 and lands in Cape Town 11:40." }
 ];
 
@@ -996,7 +1019,7 @@ class Component extends DCLogic {
       return { title: n.title, items, open, sign: open ? "–" : "+",
         toggle: () => this.setState(st => ({ openNote: st.openNote === n.id ? null : n.id })) };
     });
-    const order = ["Flights", "Stays", "Transfers & trains", "Tours & excursions", "Visas & documents"];
+    const order = ["Flights", "Lounges", "Stays", "Transfers & trains", "Tours & excursions", "Visas & documents"];
     const groups = order.map(t => {
       const items = all.filter(b => b.group === t)
         .slice()
@@ -1042,7 +1065,7 @@ class Component extends DCLogic {
       showRoute: this.props.showRoute ?? true,
       budOpen: this.state.budOpen, budExpanded: this.state.budOpen ? "true" : "false", budSign: this.state.budOpen ? "–" : "+",
       toggleBud: () => this.setState(st => ({ budOpen: !st.budOpen })),
-      bud: {"total": "R83,034.00", "used": "R81,447.30", "left": "R1,586.70", "pct": "98.1%", "pctLabel": "98% of the budget used", "groups": [{"title": "Flights", "rows": [{"name": "Return flights (CPT–ZRH · PRG–CPT)", "budget": "R16,500.00", "used": "R15,305.80", "left": "R1,194.20", "tone": "under"}, {"name": "One-way flight (ZRH–VIE)", "budget": "R6,250.00", "used": "R6,332.86", "left": "R82.86 over", "tone": "over"}]}, {"title": "Trains", "rows": [{"name": "ÖBB train (VIE–PRG)", "budget": "R750.00", "used": "R610.87", "left": "R139.13", "tone": "under"}]}, {"title": "Accommodation", "rows": [{"name": "Sheilagh: Das Tigra (2 nights)", "budget": "R16,500.00", "used": "R17,958.70", "left": "R1,458.70 over", "tone": "over"}, {"name": "Sheilagh: extra Das Tigra night", "budget": "R5,000.00", "used": "R4,314.91", "left": "R685.09", "tone": "under"}, {"name": "Carol: Das Tigra (2 nights)", "budget": "R15,000.00", "used": "R15,247.12", "left": "R47.12 over", "tone": "over"}, {"name": "Carol: Dan In'n Out (1 night)", "budget": "R7,200.00", "used": "R6,718.09", "left": "R581.91", "tone": "under"}]}, {"title": "Events", "rows": [{"name": "Sheilagh: St Peter's concert", "budget": "R1,300.00", "used": "R16.68", "left": "R1,283.32", "tone": "under"}, {"name": "Carol: St Peter's concert", "budget": "R1,100.00", "used": "R1,120.94", "left": "R20.94 over", "tone": "over"}, {"name": "La Bohème × 2 tickets", "budget": "R12,000.00", "used": "R12,387.33", "left": "R387.33 over", "tone": "over"}]}, {"title": "Planning & booking", "rows": [{"name": "Planning fee", "budget": "R1,434.00", "used": "R1,434.00", "left": "R0.00", "tone": ""}]}]},
+      bud: {"total": "R83,034.00", "used": "R82,787.30", "left": "R246.70", "pct": "99.7%", "pctLabel": "99.7% of the budget used", "groups": [{"title": "Flights", "rows": [{"name": "Return flights (CPT–ZRH · PRG–CPT)", "budget": "R16,500.00", "used": "R15,305.80", "left": "R1,194.20", "tone": "under"}, {"name": "One-way flight (ZRH–VIE)", "budget": "R6,250.00", "used": "R6,332.86", "left": "R82.86 over", "tone": "over"}]}, {"title": "Lounges", "rows": [{"name": "Bidvest Premier Lounge (Cape Town)", "budget": "—", "used": "R638.00", "left": "", "tone": ""}, {"name": "Ahlan Lounge (Dubai, 3 hours)", "budget": "—", "used": "R702.00", "left": "", "tone": ""}]}, {"title": "Trains", "rows": [{"name": "ÖBB train (VIE–PRG)", "budget": "R750.00", "used": "R610.87", "left": "R139.13", "tone": "under"}]}, {"title": "Accommodation", "rows": [{"name": "Sheilagh: Das Tigra (2 nights)", "budget": "R16,500.00", "used": "R17,958.70", "left": "R1,458.70 over", "tone": "over"}, {"name": "Sheilagh: extra Das Tigra night", "budget": "R5,000.00", "used": "R4,314.91", "left": "R685.09", "tone": "under"}, {"name": "Carol: Das Tigra (2 nights)", "budget": "R15,000.00", "used": "R15,247.12", "left": "R47.12 over", "tone": "over"}, {"name": "Carol: Dan In'n Out (1 night)", "budget": "R7,200.00", "used": "R6,718.09", "left": "R581.91", "tone": "under"}]}, {"title": "Events", "rows": [{"name": "Sheilagh: St Peter's concert", "budget": "R1,300.00", "used": "R16.68", "left": "R1,283.32", "tone": "under"}, {"name": "Carol: St Peter's concert", "budget": "R1,100.00", "used": "R1,120.94", "left": "R20.94 over", "tone": "over"}, {"name": "La Bohème × 2 tickets", "budget": "R12,000.00", "used": "R12,387.33", "left": "R387.33 over", "tone": "over"}]}, {"title": "Planning & booking", "rows": [{"name": "Planning fee", "budget": "R1,434.00", "used": "R1,434.00", "left": "R0.00", "tone": ""}]}]},
       weather: [{"city": "Zurich", "dates": "4 – 11 Dec", "high": "4°", "low": "/ −2°C", "note": "Grey and damp, with frost overnight. Snow is possible. It's dark by about 16:30."}, {"city": "Vienna", "dates": "11 – 14 Dec", "high": "4°", "low": "/ −1°C", "note": "Cold and often windy, so the wind makes it feel colder. Dark by about 16:00. Markets are at their best after dark."}, {"city": "Prague", "dates": "14 – 23 Dec", "high": "2°", "low": "/ −3°C", "note": "The coldest of the three, with icy cobbles and a chance of snow. Dark by about 16:00."}],
       wxColsNarrow: "grid-template-columns:1fr",
       showTimeline: this.props.showTimeline ?? true,
